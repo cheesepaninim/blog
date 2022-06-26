@@ -2,7 +2,7 @@ const siteMetadata = {
     title: `Cheesepaninim's Diarog🐩`,
     author: 'Cheesepaninim',
     headerTitle: `DIAROG`,
-    description: 'A blog created with Next.js and Tailwind.css',
+    description: `Cheesepaninim's Diary + Blog`,
     language: 'ko-kr', // TODO: check
     theme: 'system', // system, dark or light
     siteUrl: 'https://cheesepaninim.vercel.app',
