@@ -1,5 +1,5 @@
 const siteMetadata = {
-    title: `Cheesepaninim's Diarog`,
+    title: `Cheesepaninim's Diarog🐩`,
     author: 'Cheesepaninim',
     headerTitle: `DIAROG`,
     description: 'A blog created with Next.js and Tailwind.css',
@@ -9,7 +9,7 @@ const siteMetadata = {
     siteRepo: 'https://github.com/cheesepaninim/blog',
     siteLogo: '/static/images/monet192.png',
     image: '/static/images/monet512.png',
-    // socialBanner: '/static/images/twitter-card.png',
+    socialBanner: '/static/images/twitter-card.png',
     email: 'hpw0310@gmail.com',
     github: 'https://github.com',
     // twitter: 'https://twitter.com/Twitter',
@@ -29,7 +29,8 @@ const siteMetadata = {
     newsletter: {
         // supports mailchimp, buttondown, convertkit, klaviyo, revue, emailoctopus
         // Please add your .env file and modify it according to your selection
-        provider: 'buttondown',
+        // provider: 'buttondown',
+        provider: '',
     },
     comment: {
         // If you want to use a commenting system other than giscus you have to add it to the
