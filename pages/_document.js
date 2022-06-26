@@ -16,6 +16,17 @@ class MyDocument extends Document {
                         href="/static/favicons/fav.ico"
                     />
                     <link rel="manifest" href="/static/favicons/site.webmanifest" />
+
+                    {/* 네이버, 구글 사이트 등록 */}
+                    <meta
+                        name="naver-site-verification"
+                        content="bca08880780878f3caf0161ee0ca6c7914cff730"
+                    />
+                    <meta
+                        name="google-site-verification"
+                        content="ZdmK1dr_82TTlfrLjMspWX_bDV1mJN3jiyO0tQ2sjoM"
+                    />
+
                     {/*<link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5" />*/}
                     <meta name="msapplication-TileColor" content="#000000" />
                     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
