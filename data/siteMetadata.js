@@ -9,7 +9,7 @@ const siteMetadata = {
     siteRepo: 'https://github.com/cheesepaninim/blog',
     siteLogo: '/static/images/monet192.png',
     image: '/static/images/monet512.png',
-    socialBanner: '/static/images/twitter-card.png',
+    socialBanner: '/static/images/monet192.png',
     email: 'hpw0310@gmail.com',
     github: 'https://github.com',
     // twitter: 'https://twitter.com/Twitter',
