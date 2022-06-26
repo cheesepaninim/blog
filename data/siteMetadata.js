@@ -5,7 +5,7 @@ const siteMetadata = {
     description: 'A blog created with Next.js and Tailwind.css',
     language: 'ko-kr', // TODO: check
     theme: 'system', // system, dark or light
-    siteUrl: 'https://cheesepaninim.netlify.app',
+    siteUrl: 'https://cheesepaninim.vercel.app',
     siteRepo: 'https://github.com/cheesepaninim/blog',
     siteLogo: '/static/images/monet192.png',
     image: '/static/images/monet512.png',
