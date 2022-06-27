@@ -35,8 +35,18 @@ const LayoutWrapper = ({ children }) => {
                                         className="hidden h-6 text-2xl font-semibold sm:block"
                                         style={{ lineHeight: '1' }}
                                     >
-                                        {siteMetadata.headerTitle}
+                                        {router.asPath === '/' ? (
+                                            <Notation type={'highlight'}>
+                                                {siteMetadata.headerTitle}
+                                            </Notation>
+                                        ) : (
+                                            siteMetadata.headerTitle
+                                        )}
                                     </div>
+                                ) : router.asPath === '/' ? (
+                                    <Notation type={'highlight'}>
+                                        {siteMetadata.headerTitle}
+                                    </Notation>
                                 ) : (
                                     siteMetadata.headerTitle
                                 )}
