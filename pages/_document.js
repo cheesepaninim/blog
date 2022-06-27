@@ -29,8 +29,9 @@ class MyDocument extends Document {
 
                     {/* ga-tag CSP test */}
                     {/*<meta httpEquiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' giscus.app;" />*/}
-                    <meta httpEquiv="Content-Security-Policy" content="script-src 'self' https://www.googletagmanager.com 'unsafe-inline' 'unsafe-eval';" />
-                            
+                    {/*<meta httpEquiv="Content-Security-Policy" content="script-src 'self' https://www.googletagmanager.com 'unsafe-inline' 'unsafe-eval';" />*/}
+                    <meta httpEquiv="Content-Security-Policy" content="script-src 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com/;" />
+
                     {/*<link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5" />*/}
                     <meta name="msapplication-TileColor" content="#000000" />
                     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
