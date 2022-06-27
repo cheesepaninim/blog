@@ -11,7 +11,8 @@ const ContentSecurityPolicy = `
   media-src 'none';
   connect-src *;
   font-src 'self';
-  frame-src giscus.app
+  frame-src giscus.app;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com
 `
 
 const securityHeaders = [
