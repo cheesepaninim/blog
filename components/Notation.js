@@ -18,11 +18,11 @@ const Notation = ({ type, show, children }) => {
         },
         box: {
             color: '#4a83ff',
-            strokeWidth: 5,
+            strokeWidth: 3,
         },
         circle: {
-            color: '#4a83ff',
-            strokeWidth: 5,
+            color: '#23ffc8',
+            strokeWidth: 3,
         },
         highlight: {
             color: '#fbff66',
@@ -34,7 +34,7 @@ const Notation = ({ type, show, children }) => {
         },
         'crossed-off': {
             color: '#ff6666',
-            strokeWidth: 3,
+            strokeWidth: 2,
         },
     }
 
@@ -44,7 +44,7 @@ const Notation = ({ type, show, children }) => {
             show={show || true}
             color={p[type]['color']}
             strokeWidth={p[type]['strokeWidth']}
-            padding={5}
+            padding={1}
         >
             {children}
         </RoughNotation>
