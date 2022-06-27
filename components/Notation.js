@@ -13,7 +13,7 @@ import { RoughNotation } from 'react-rough-notation'
 const Notation = ({ type, show, children }) => {
     const p = {
         underline: {
-            color: '#66ff7a',
+            color: '#d74c56',
             strokeWidth: 2,
         },
         box: {
@@ -21,7 +21,7 @@ const Notation = ({ type, show, children }) => {
             strokeWidth: 3,
         },
         circle: {
-            color: '#23ffc8',
+            color: '#51b05d',
             strokeWidth: 3,
         },
         highlight: {
@@ -36,6 +36,12 @@ const Notation = ({ type, show, children }) => {
             color: '#ff6666',
             strokeWidth: 2,
         },
+        bracket: {
+            color: 'orange',
+            strokeWidth: 2,
+            padding: 3,
+            brackets: ['left', 'right'],
+        },
     }
 
     return (
@@ -44,7 +50,8 @@ const Notation = ({ type, show, children }) => {
             show={show || true}
             color={p[type]['color']}
             strokeWidth={p[type]['strokeWidth']}
-            padding={1}
+            padding={p[type]['padding'] || 1}
+            brackets={p[type]['brackets'] || ''}
         >
             {children}
         </RoughNotation>
