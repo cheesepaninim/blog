@@ -1,10 +1,10 @@
 ---
 title: '블로그개발기 (2)'
 date: '2022-06-29'
-tags: ['react', 'Semantic-UI', 'React-Bootstrap']
-draft: true
+tags: ['blog', 'react', 'semantic-ui', 'react-bootstrap', 'next-js', 'sitemap.xml']
+draft: false
 summary: '개인 블로그 개발기 2탄. gatsby에서 create-react-app로.  CRA에서 nextjs로.'
-images: ['/static/images/nextjs.png']
+images: ['/static/images/develop/blog/init-02-01.png']
 ---
 
 # Dev Stack
@@ -21,127 +21,127 @@ images: ['/static/images/nextjs.png']
 ---
 
 # History
-### Gatsby
-개인 블로그를 갖고 싶다는 마음에 약간의 욕심을 보태어 사이트의 컨트롤이 더 용이하도록 하고 싶었다.
-그래서 기존에 사용했던 티스토리가 아닌 정적 사이트 개발로 눈을 돌리게 되었고 자연스레 React를 사용하는 [**Gatsby**](https://www.gatsbyjs.com/)를 알아보게 되었다.
-다행히도 많은 스타터 템플릿(링크 => [**Gatsby Starters**](https://www.gatsbyjs.com/starters/#Blog))들이 존재했고 데모 페이지를 둘러보며 세 개 정도를 선정했다.
-(..여기 스타터 모음 이미지 첨부.. => https://www.gatsbyjs.com/starters/#Blog)
 
-*새로운 나의 블로그라는 기분좋은 시작도 잠시.. 개발을 하면 늘 그랬듯이 여러가지 문제들을 마주하였고 그 과정이 생각보다 길어져 결국 포기하게 되었다..*
+### Gatsby
+
+개인 블로그를 갖고 싶다는 마음에 약간의 욕심을 보태어 사이트의 컨트롤이 가능하게 하고 싶었다.
+그래서 기존에 사용했던 티스토리가 아닌 정적 사이트 개발로 눈을 돌리게 되었고 자연스레 React 를 사용하는 [**Gatsby**](https://www.gatsbyjs.com/)를 알아보게 되었다.
+
+> Gatsby Starters
+> [![gatsby starters](/static/images/develop/blog/init-02-01.png)](https://www.gatsbyjs.com/starters/#Blog)
+
+다행히도 많은 스타터 템플릿([**Gatsby Starters**](https://www.gatsbyjs.com/starters/#Blog))들이 존재했고 데모 페이지를 둘러보며 세 개 정도를 선정했다.
+_새로운 나의 블로그라는 기분좋은 시작도 잠시, 개발을 하면 늘 그랬듯이 여러가지 문제들을 마주하였고 그 과정이 생각보다 길어져 결국 포기하게 되었다._
 
 따로 기록을 하지는 않았지만 각각의 템플릿 소스에 문제도 있었던 것 같고 최근 Node 업데이트를 실행하면서 호환 문제나, npm cache 등의 문제가 있었던 것으로 기억한다.
-길어지는 과정 속에서 node 재설치등의 과정을 반복하기 귀찮았던 나는 우선 빨리 시작하고 싶었던 마음이 컸던터라, 단순히 React를 사용하여 개발하고 디벨롭하는 방향으로 마음을 바꾸었다.
-(조금 지쳐서 너무 섣불리 정했던 것 같다.)
+길어지는 과정 속에서 node 재설치등의 과정을 반복하기 귀찮았던 나는 우선 빨리 시작하고 싶었던 마음이 컸던터라, 단순히 React 를 사용하여 개발하고 디벨롭하는 방향으로 마음을 바꾸었다.
+(이것도 역시 조금 지쳐서 너무 섣불리 정했던 것 같다.)
 
 ---
+
 ### React
+
 #### Semantic-UI → React-Bootstrap
+
 아무리 맨땅에서 시작하더라도 UX/UI 고민까지 가면 부족한 센스에 넘쳐나는 창작욕의 시너지로 시간이 너무 길어질 것 같았다.
-맘에드는 UI 라이브러리를 찾아보다가 예전에 한 번 사용해보았던 **[semantic-ui](https://semantic-ui.com/)** 를 사용하기로 했다.(여전히 섣부른 결정이었다.)
+마음에 드는 UI 라이브러리를 찾아보다가 예전에 한 번 사용해보았던 **[semantic-ui](https://semantic-ui.com/)** 를 사용하기로 했다.(여전히 섣부른 결정이었다.)
 
-<..https://semantic-ui.com/ => 업데이트 기간 화면 첨부>
-위 이미지에서 보이듯 마지막 업데이트가 4년 전이다. css 파일 하나에는 세미콜론이 두번 찍혀있는 어이없는 코드가 남아있었고 `"@semantic-ui-react/css-patch": "^1.0.0"`를 추가로 설치해서 `"build": "semantic-ui-css-patch && react-scripts build"` 로 빌드 스크립트를 변경함으로써 해결했다.
+![semantic-ui github commits](/static/images/develop/blog/init-02-02.png)
 
-다음으로 Layout을 잡기위해 header, footer 영역을 잡는데 다시 반응형에서 문제가 생겼고 *(이 부분은 전적으로 나의 css 이해도 부족이다.)* 더 익숙하지만 twitte 느낌을 피하고 싶어 안쓰려했던 [Bootstrap](https://react-bootstrap.github.io/) 으로 넘어가기로 했다.
-*물론, 부트스트랩은 커스터마이징도 나름 어렵지 않게 할 수 있도록 제공된다고 생각되지만 UI/UX를 다루는 시간을 최소화 하고 싶었다.*
-(참고로 최근에는 Semantic UI가 아닌 [Fomantic-UI](https://fomantic-ui.com/) 에서 버전업이 진행되고 있는 것 같다.)
+다만 마지막 업데이트가 4년 전이었다. css 파일 하나에는 세미콜론이 두번 찍혀있는 어이없는 코드가 남아있었고 `"@semantic-ui-react/css-patch": "^1.0.0"`를 추가로 설치해서 `"build": "semantic-ui-css-patch && react-scripts build"` 로 빌드 스크립트를 변경함으로써 해결했다.
 
-#### SEO
-화면 UI도 정말 심플하지만 완성이 되었고 홈화면, 목록화면(전체 / 카테고리별 목록), 게시글 화면 등 라우팅 처리까지 완료되었다.
-앞으로 한 단계, SEO 만이 남았으나 이전에도 해보았고 무난하게 진행되리라 생각했다. 
+다음으로 Layout 을 잡기위해 header, footer 영역을 잡는데 다시 반응형에서 문제가 생겼고 _(이 부분은 전적으로 나의 css 이해도 부족이다.)_ 더 익숙하긴 했지만 twitter 느낌을 피하고 싶어 안쓰려했던 [Bootstrap](https://react-bootstrap.github.io/) 으로 넘어가기로 했다.
+_물론, 부트스트랩은 커스터마이징도 나름 어렵지 않게 할 수 있도록 제공된다고 생각되지만 UI/UX를 다루는 시간을 최소화 하고 싶었다._
 
-#### sitemap.xml
+(참고로 최근에는 Semantic UI가 아닌 [Fomantic-UI](https://fomantic-ui.com/) 에서 버전 업이 진행되고 있는 것 같다.)
+
+<br />
+#### SEO Bootstrap 으로 넘어가서 화면 UI도 정말 심플하지만 완성이 되었고 홈화면, 목록화면(전체 / 카테고리별
+목록), 게시글 화면 등 라우팅 처리까지 완료되었다. 앞으로 한 단계, SEO 만이 남았으나 ~~이전에도 해보았고
+무난하게 진행되리라 생각했다.~~
+
+**sitemap.xml**
+
 네이버와 구글에서 사이트 등록을 하고 [Google Analytics](https://analytics.google.com/) 도 적용 했다. robots.txt 파일을 추가하고 react-router-sitemap 을 이용해 빌드할 때 sitemap.xml 파일이 추가되도록 하려 했으나 실패. babel preset 관련 문제였으나 여기에도 역시 npm 이 엮인 것 같았고 큰 고민 없이 포기했다. 정확히는 react-router-sitemap 의 사용을 포기했다.
 
 url mapping 을 위한 카테고리 및 포스터 정보를 따로 관리하기 위해 분리 되어 있었고 아래와 같이 어렵지 않게 `sitemapBuilder.js` 를 만들 수 있었다.
-[sitemapBuilder.js]
-```
+
+**[sitemapBuilder.js]**
+
+```javascript
 const URL = process.argv[2]
 
 const c = [
     // category
-    { type : 'category', name : 'blog', count : 0 },
-    { type : 'category', name : 'dev', count : 0 },
-    { type : 'category', name : 'economy', count : 0 },
-    { type : 'category', name : 'smalltalk', count : 0 },
+    { type: 'category', name: 'blog', count: 0 },
+    { type: 'category', name: 'dev', count: 0 },
+    { type: 'category', name: 'economy', count: 0 },
+    { type: 'category', name: 'smalltalk', count: 0 },
 ]
 
 const p = [
     // post { type : {categoryName}, name : {postName} }
     {
-        id : '',
-        type : 'blog',
-        title : '블로그 개발기',
-        intro : '블로그 개발기 1탄',
-        dttm : '2022-06-19 20:58'
+        id: '',
+        type: 'blog',
+        title: '블로그 개발기',
+        intro: '블로그 개발기 1탄',
+        dttm: '2022-06-19 20:58',
     },
     {
-        id : '',
-        type : 'smalltalk',
-        title : '주절주절',
-        intro : '주절주절 잡담중..',
-        dttm : '2022-06-19 21:12'
+        id: '',
+        type: 'dev',
+        title: '개발일지',
+        intro: '2022년 6월 19일 개발 일지',
+        dttm: '2022-06-19 23:45',
     },
     {
-        id : '',
-        type : 'smalltalk',
-        title : '주절주절2',
-        intro : '2편도 기대해주세요 ',
-        dttm : '2022-06-19 22:24'
-    },
-    {
-        id : '',
-        type : 'dev',
-        title : '개발일지',
-        intro : '2022년 6월 19일 개발 일지',
-        dttm : '2022-06-19 23:45'
-    },
-    {
-        id : '',
-        type : 'economy',
-        title : '경제학원론',
-        intro : '돈의 주인이 되자',
-        dttm : '2022-06-20 01:01'
+        id: '',
+        type: 'economy',
+        title: '경제학원론',
+        intro: '돈의 주인이 되자',
+        dttm: '2022-06-20 01:01',
     },
 ]
 
-const getCat = nm => c.filter(v => v.name === nm)[0]
+const getCat = (nm) => c.filter((v) => v.name === nm)[0]
 const cats = {
-    blog : getCat('blog'),
-    dev : getCat('dev'),
-    economy : getCat('economy'),
-    smalltalk : getCat('smalltalk'),
+    blog: getCat('blog'),
+    dev: getCat('dev'),
+    economy: getCat('economy'),
+    smalltalk: getCat('smalltalk'),
 }
 
-p.map(v => v.id = (++cats[v.type].count).toString())
+p.map((v) => (v.id = (++cats[v.type].count).toString()))
 
 const create = async () => {
     console.log(URL)
 
-    const urls = [
-        `${URL}/profile`,
-        `${URL}/post/all`,
-    ]
+    const urls = [`${URL}/profile`, `${URL}/post/all`]
     const postUrl = `${URL}/post`
-    c.forEach(({name}) => urls.push(`${postUrl}/${name}`))
+    c.forEach(({ name }) => urls.push(`${postUrl}/${name}`))
 
     const defaultUrl = `    <url>
         <loc>${URL}</loc>
         <priority>1.0</priority>
     </url>\n`
-    const urlSet = urls.map(u => `    <url>
+    const urlSet = urls.map(
+        (u) => `    <url>
         <loc>${u}</loc>
-    </url>`)
-    const postUrlSet = p.map(post => `    <url>
+    </url>`
+    )
+    const postUrlSet = p.map(
+        (post) => `    <url>
         <loc>${postUrl}/${post.type}/${post.id}</loc>
         <lastmod>${post.dttm.slice(0, 10)}</lastmod>
-    </url>`)
+    </url>`
+    )
     let intro = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`
     let outro = `\n</urlset>`
     let sitemap = intro + defaultUrl + urlSet.join('\n') + '\n' + postUrlSet.join('\n') + outro
 
     await fs.promises.writeFile('public/sitemap.xml', sitemap, {
-        encoding: 'utf-8'
+        encoding: 'utf-8',
     })
 
     return
@@ -149,33 +149,44 @@ const create = async () => {
 
 create()
 ```
-*다만 위 코드에서 카테고리와, 포스트 정보는 CommonJS와 ES6 차이로 우선 손수 복사해오는 방식으로 했는데 개선이 필요한 부분이었다.*
 
-[package.json]
-```
-...
+_다만 위 코드에서 카테고리와, 포스트 정보는 CommonJS와 ES6 차이로 우선 손수 복사해오는 방식으로 했는데 개선이 필요한 부분이었다._
+
+**[package.json]**
+
+```javascript
 "scripts": {
-    ...
+    // ...
     "build": "npm run sitemap && react-scripts build",
     "sitemap": "node ./src/config/sitemapBuilder.js https://cheesepaninim.netlify.app"
 },
-...
 ```
 
-#### Open Graph
+<br />
+**Open Graph**
+
 이 부분에서 이해도가 부족해서 시간을 많이 소비했던 것 같은데, 결론적으로는 다시 한 번 처음으로 돌아가 [next-js](https://nextjs.org/)로 갈아타게 된 계기가 되었다.
+특히 테스트가 로컬에서 불가능하고 실제 배포 후에 가능하기에 더 오래 걸렸던 것 같다.
 
 간단히 설명하자면, React는 CSR로 하나의 index.html 파일을 만들고 JS로 처리를 한다.
-이 부분을 보완하기 위해 **react-helmet** 을 사용해 페이지 별로 <head> 영역 내의 정보들을 다르게 구성하였고 og 관련 meta 정보들을 추가하였다.
+이 부분을 보완하기 위해 **react-helmet** 을 사용해 페이지 별로 `<head></head>` 영역 내의 정보들을 다르게 구성하였고 og 관련 meta 정보들을 추가하였다.
+
 그리고 **react-snap** 으로 react-router-dom 의 구성에 맞게 index.html 을 여러개 생성되도록 pre-rendering 하려 했으나! react-snap 에서는 동적 라우팅에 대한 지원이 되지 않았다.
-물론 방법이 있었을지도 모른다. 하지만 react-snap 역시 npm 에서 last published 가 **4년전** 이었기에.. 아직 늦지 않았다는 생각에 **next-js** 로 넘어가기로 결심했다.
-(생각해보면 이전에 SEO를 적용했을 때도 **next-js** 를 사용했다.;)
-  
-- 참고 URL
-  - 카카오 캐시 삭제
-  - 페이스북 Open Graph Debugger
-  - Open Graph Debuuger
-<..cheesepaninim.netlify.app => 화면들 첨부>
+물론 방법이 있었을지도 모른다. 하지만 react-snap 역시 npm 에서 last published 가 **4년전** 이었기에, 아직 늦지 않았다는 생각에 **next-js** 로 넘어가기로 결심했다.
+(생각해보면 이전에 SEO를 적용했을 때도 **next-js** 를 사용했다...)
+
+🔔 **참고 URL**
+
+-   카카오 OG 캐시 삭제 : https://developers.kakao.com/tool/clear/og
+-   페이스북 공유 디버거 : https://developers.facebook.com/tools/debug/
+-   Open Graph : https://www.opengraph.xyz/url/
+
+<br />
+생각보다 내용이 길어져서 현재 블로그에 관한 내용은 [블로그개발기 (3)](https://cheesepaninim.vercel.app/blog/develop/blog/init-03)에서
+이어가려 한다.
 
 ---
-생각보다 내용이 길어져서 현재 블로그에 관한 내용은 [블로그개발기 (3)](https://cheesepaninim.vercel.app/blog/develop/blog/init-03)에서 이어가려 한다.
+
+_**NextJS 로 갈아 엎기 전 ↓**_
+
+[![my previous site image 01](/static/images/develop/blog/init-02-03.png)](https://cheesepaninim.vercel.app/static/images/develop/blog/init-02-03.png)
