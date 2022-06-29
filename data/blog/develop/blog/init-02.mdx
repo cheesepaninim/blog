@@ -1,7 +1,7 @@
 ---
 title: '블로그개발기 (2)'
-date: '2022-06-27'
-tags: ['react', 'next-js', 'vercel']
+date: '2022-06-29'
+tags: ['react', 'next-js', 'vercel', 'Semantic-UI', 'React-Bootstrap', 'Tailwind', 'tailwind-nextjs-starter-blog']
 draft: true
 summary: '개인 블로그 개발기 2탄. gatsby에서 create-react-app로.  CRA에서 nextjs로.'
 images: ['/static/images/nextjs.png']
@@ -21,5 +21,29 @@ images: ['/static/images/nextjs.png']
 ---
 
 # History
+### Gatsby
+개인 블로그를 갖고 싶다는 마음에 약간의 욕심을 보태어 사이트의 컨트롤이 더 용이하도록 하고 싶었다.
+그래서 기존에 사용했던 티스토리가 아닌 정적 사이트 개발로 눈을 돌리게 되었고 자연스레 React를 사용하는 [**Gatsby**](https://www.gatsbyjs.com/)를 알아보게 되었다.
+다행히도 많은 스타터 템플릿(링크 => [**Gatsby Starters**](https://www.gatsbyjs.com/starters/#Blog))들이 존재했고 데모 페이지를 둘러보며 세 개 정도를 선정했다.
+(..여기 스타터 모음 이미지 첨부.. => https://www.gatsbyjs.com/starters/#Blog)
+
+*새로운 나의 블로그라는 기분좋은 시작도 잠시.. 개발을 하면 늘 그랬듯이 여러가지 문제들을 마주하였고 그 과정이 생각보다 길어져 결국 포기하게 되었다..*
+
+따로 기록을 하지는 않았지만 각각의 템플릿 소스에 문제도 있었던 것 같고 최근 Node 업데이트를 실행하면서 호환 문제나, npm cache 등의 문제가 있었던 것으로 기억한다.
+길어지는 과정 속에서 node 재설치등의 과정을 반복하기 귀찮았던 나는 우선 빨리 시작하고 싶었던 마음이 컸던터라, 단순히 React를 사용하여 개발하고 디벨롭하는 방향으로 마음을 바꾸었다.
+(조금 지쳐서 너무 섣불리 정했던 것 같다.)
+
+### React
+#### Semantic-UI
+아무리 맨땅에서 시작하더라도 UX/UI 고민까지 가면 부족한 센스에 넘쳐나는 창작욕의 시너지로 시간이 너무 길어질 것 같았다.
+맘에드는 UI 라이브러리를 찾아보다가 예전에 한 번 사용해보았던 **[semantic-ui](https://semantic-ui.com/)** 를 사용하기로 했다.(여전히 섣부른 결정이었다.)
+<..https://semantic-ui.com/ => 업데이트 기간 화면 첨부>
+위 이미지에서 보이듯 마지막 업데이트가 4년 전이다. css 파일 하나에는 세미콜론이 두번 찍혀있는 어이없는 코드가 남아있었고 `"@semantic-ui-react/css-patch": "^1.0.0"`를 추가로 설치해서 `"build": "semantic-ui-css-patch && react-scripts build"` 로 빌드 스크립트를 변경함으로써 해결했다.
+
+
+#### Bootstrap
+
+https://react-bootstrap.github.io/
+<..cheesepaninim.netlify.app => 화면들 첨부>
 
 Gatsby, Nextjs, Velog..
