@@ -34,16 +34,16 @@ images: ['/static/images/nextjs.png']
 (조금 지쳐서 너무 섣불리 정했던 것 같다.)
 
 ### React
-#### Semantic-UI
+#### Semantic-UI → React-Bootstrap
 아무리 맨땅에서 시작하더라도 UX/UI 고민까지 가면 부족한 센스에 넘쳐나는 창작욕의 시너지로 시간이 너무 길어질 것 같았다.
 맘에드는 UI 라이브러리를 찾아보다가 예전에 한 번 사용해보았던 **[semantic-ui](https://semantic-ui.com/)** 를 사용하기로 했다.(여전히 섣부른 결정이었다.)
 <..https://semantic-ui.com/ => 업데이트 기간 화면 첨부>
 위 이미지에서 보이듯 마지막 업데이트가 4년 전이다. css 파일 하나에는 세미콜론이 두번 찍혀있는 어이없는 코드가 남아있었고 `"@semantic-ui-react/css-patch": "^1.0.0"`를 추가로 설치해서 `"build": "semantic-ui-css-patch && react-scripts build"` 로 빌드 스크립트를 변경함으로써 해결했다.
+다음으로 Layout을 잡기위해 header, footer 영역을 잡는데 다시 반응형에서 문제가 생겼고 *(이 부분은 전적으로 나의 css 이해도 부족이다.)* 더 익숙하지만 twitte 느낌을 피하고 싶어 안쓰려했던 [Bootstrap](https://react-bootstrap.github.io/) 으로 넘어가기로 했다.
+*물론, 부트스트랩은 커스터마이징도 나름 어렵지 않게 할 수 있도록 제공된다고 생각되지만 UI/UX를 다루는 시간을 최소화 하고 싶었다.*
 
+#### SEO
 
-#### Bootstrap
-
-https://react-bootstrap.github.io/
 <..cheesepaninim.netlify.app => 화면들 첨부>
 
 Gatsby, Nextjs, Velog..
