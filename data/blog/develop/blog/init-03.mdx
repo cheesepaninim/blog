@@ -5,6 +5,25 @@ tags: ['blog', 'react', 'next-js', 'vercel', 'tailwind', 'tailwind-nextjs-starte
 draft: true
 summary: 'Tailwind Nextjs Starter Blog 적용기'
 images: ['/static/images/develop/blog/init-03-01.png']
+summary: 'Tailwind Nextjs Starter Blog 적용기'
+images: ['/static/images/develop/blog/init-03-01.png']
+---
+
+# NextJS
+
+> Next.js gives you the best developer experience with all the features you need for production: hybrid static & server rendering, TypeScript support, smart bundling, route pre-fetching, and more. No config needed.
+
+[NextJS](https://nextjs.org/)는 단순히 말하면 React 기반 SPA(Single Page Application)를 SSR(Server Side Rendering)을 가능하게 해준다.
+
+React 만으로 개발한 SPA의 네트워크를 보면 문서 > 응답에서 동일한 index.html 을 받고 있는 것을 볼 수 있다.
+NextJS 에서는 SSR 방식으로 최초 접근 시 빠른 로딩을 가능하게 하고 페이지 전환에 있어서는 CSR 방식을 사용한다.
+
+요즘은 react-helmet 만으로도 SEO에 충분하다는 글도 본 적이 있는데, 개인적으로는 크롤링 될 때 차이가 어느 정도 존재할거라 생각했고
+무엇보다도 내가 원했던 Open Graph 관련 처리가 원만하게 되었으니 만족한다.
+_이 부분은 나중에 크롤링을 공부할 때 추가적으로 자세히 알아봐야겠다._
+
+<br />
+
 ---
 
 # ..
@@ -20,6 +39,68 @@ images: ['/static/images/develop/blog/init-03-01.png']
 
 ![kakaotalk open graph images test result]('/static/images/develop/blog/init-03-04.png')
 
+# Tailwind-NextJS-Starter-Blog
+
+지난 번에 작업했던 Bootstrap 기반의 기본 레이아웃이 있었지만 이왕 새로 시작하는 김에 템플릿부터 다시 찾아보기로 했다.
+
+nextjs blog starter로 검색해보니 처음에 나온 것이 <span color="#f36033">[tailwind-nextjs-starter-blog github](https://github.com/timlrx/tailwind-nextjs-starter-blog/)</span> 였는데 디자인이 깔끔해보이고 트렌드에 맞는 것 같아 바로 사용해보기로 했다.
+
+[blog sample](https://tailwind-nextjs-starter-blog.vercel.app/)
+![tailwind-nextjs-starter-blog sample site]('/static/images/develop/blog/init-03-01.png')
+
+<br />
+
+처음에는 Quick Start Guide 를 따라서 pliny cli 를 통해 CMD에서 설치를 해보려 했는데, 이번에도 몇 가지 에러가 발생하였다.
+https://github.com/timlrx/tailwind-nextjs-starter-blog 의 README.md 를 더 읽어보다가 상단에 Use this template 버튼을 발견했고 눌러보니 나의 계정에 repository 를 생성해서 clone 하는 것 같았다. 다행히도 이번에는 별 무리없이 `npm install` 이 완료 되었고 처음으로 스타터 템플릿 화면을 띄워 볼 수 있었다.
+
+tailwind-nextjs-starter-blog 의 github 에서 **`README`** 를 보면 [Extend / Customize](https://github.com/timlrx/tailwind-nextjs-starter-blog#extend--customize) 가 있는데, 따라해보면 어렵지않게 개인 블로그 세팅을 할 수 있다.
+
+<br />
+
+배포에서 에러가 발생하긴 했는데 netlify → [vercel](https://vercel.com/) 로 넘어가니 잘 되어서 무시하기로 했다.[^1]
+![tailwind-nextjs-starter-blog deploy button]('/static/images/develop/blog/init-03-02.png')
+![Vercel starter templates]('/static/images/develop/blog/init-03-03.png')
+
+다시 한 번 **구글**[^2]과 **네이버**에 사이트 등록을 하고 **GA** 를 적용했다.
+GA 적용을 할 때 크롬에서 CSP(Content Security Policy) 문제로 살짝 삽질을 했는데
+이 템플릿에서는 CSP 를 `next.config.js`에서 따로 관리 하고 있었다.
+
+```javascript
+const ContentSecurityPolicy = `
+  default-src 'self';
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app https://www.googletagmanager.com;
+  style-src 'self' 'unsafe-inline';
+  img-src * blob: data:;
+  media-src 'none';
+  connect-src *;
+  font-src 'self';
+  frame-src giscus.app
+`
+```
+
+위 코드에서 script-src 라인에 `https://www.googletagmanager.com` 를 추가해주면 된다.
+
+_카카오톡에서 링크 공유 시 이미지가 잘 바뀌는 것도 확인하고 기분좋게 마무리_
+![kakaotalk open graph images test result]('/static/images/develop/blog/init-03-04.png')
+
+<br />
+
 ---
 
+# 🔔 addon
+
+-   reactg-rough-notation
+-   sitemap.xml lastmod
+
+아직 기본적인 세팅 외에 추가적으로 적용한 것은 딱히 없다.
+같은 템플릿을 사용하는 사이트들을 방문해보다가 https://www.kirillso.com/ 에서 보고 react-rough-notation 에 꽂혀서 적용하였고
+sitemap 에 url 만 작성이 되길래 포스팅의 경우 lastmod 가 추가 될 수 있도록 `/scripts/generate-sitemap.js` 을 수정하였다.
+
 # ..
+
+<br />
+
+---
+
+[^1]: vercel 에서 nextjs 를 개발해서 그런 것 같다.
+[^2]: google 에 등록된 sitemap.xml 이 <span color='#f36033'>가져올 수 없음</span>으로 나왔는데 접속해보면 잘 나왔다. 그래서 기다려보니 약 3일 뒤에 정상적으로 가져오기 시작했다.
