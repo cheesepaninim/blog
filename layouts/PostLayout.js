@@ -8,6 +8,7 @@ import siteMetadata from '@/data/siteMetadata'
 import Comments from '@/components/comments'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import Notation from '@/components/Notation'
+import TOCInline from '@/components/TOCInline'
 
 const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/master/data/blog/${fileName}`
 const discussUrl = (slug) =>
@@ -17,7 +18,7 @@ const discussUrl = (slug) =>
 
 const postDateTemplate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
 
-export default function PostLayout({ frontMatter, authorDetails, next, prev, children }) {
+export default function PostLayout({ frontMatter, authorDetails, next, prev, children, toc }) {
     const { slug, fileName, date, title, images, tags } = frontMatter
 
     return (
@@ -114,6 +115,10 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                         </div>
                         <footer>
                             <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
+                                <div>
+                                    <TOCInline toc={toc} exclude="Overview" />
+                                </div>
+
                                 {tags && (
                                     <div className="py-4 xl:py-8">
                                         <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">

@@ -1,3 +1,8 @@
 ::selection {
     background-color: #d1fff0;
 }
+
+.toc-list {
+    font-size: 1rem;
+    font-weight: bold;
+}
