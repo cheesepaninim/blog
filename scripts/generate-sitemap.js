@@ -23,9 +23,9 @@ const siteMetadata = require('../data/siteMetadata')
             ${pages
               .map((page) => {
                 // Exclude drafts from the sitemap
+                const fm = matter(source)
                 if (page.search('.md') >= 1 && fs.existsSync(page)) {
                   const source = fs.readFileSync(page, 'utf8')
-                  const fm = matter(source)
                   if (fm.data.draft) {
                     return
                   }
@@ -50,6 +50,7 @@ const siteMetadata = require('../data/siteMetadata')
                 return `
                         <url>
                             <loc>${siteMetadata.siteUrl}${route}</loc>
+                            <lastmod>${fm.data.lastmod}</lastmod>
                         </url>
                     `
               })
