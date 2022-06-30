@@ -51,7 +51,10 @@ const siteMetadata = require('../data/siteMetadata')
                 return `
                         <url>
                             <loc>${siteMetadata.siteUrl}${route}</loc>
-                            <lastmod>${fm.data.lastmod}</lastmod>
+                            ${fm.data 
+                              ? <lastmod>${fm.data.lastmod || fm?.data.date}</lastmod>
+                              : ''
+                            }
                         </url>
                     `
               })
