@@ -1,30 +1,54 @@
 ---
 title: '블로그개발기 (4)'
-date: '2022-06-30'
-tags: ['blog', 'react', 'next-js', 'vercel', 'tailwind', 'tailwind-nextjs-starter-blog']
-draft: true
+date: '2022-06-30T21:51:00.000Z'
+tags: ['blog', 'react', 'next-js', 'tailwind-nextjs-starter-blog', 'giscus']
+draft: false
 summary: '앞으로 블로그에 추가 할 것들, 그리고 개발 후기'
 images: ['/static/images/develop/blog/init-04-01.png']
 ---
 
-# Review
+# To Do List
 
-velog
+1. route url 기준으로 category 를 구분해서 필터링 되도록 할 계획이다.
+   tag 로 조회되는 기능을 카테고리 내에서도 가능하도록 해서 필터의 정확성을 높이면 아직은 조금 먼 미래에 늘어날 글들을 분류하기 좋을 것 같다.
+
+2. TOC(Table Of Contents) - 목차
+   따로 만들려고 생각했었는데, 이미 이 템플릿의 components 안에 있는 것 같다.
+
+3. [Giscus](https://giscus.app/ko)
+   무료 오픈 소스로 Github Discussion 을 이용한 댓글 시스템이다. 마찬가지로 이 템플릿에 포함이 되어있다.
+   이 부분은 포스팅으로 과정을 남길 예정.
+
+4. 경제 카테고리 내 포스팅 경고 표시
+   나는 고등학교 시절 경제 시험에서 12점을 맞은 기억이 있다. 그리고 지금은 주린이다.
+   따라서 해당 카테고리 내에 경고 표시를 디폴트도 걸어둘 생각이다.
+
+5. 태그 기반 관련 게시글
+   연관 검색어 같은 추천 시스템 정도?로 보면 될 것 같다.
+
+6. rough notation - dark theme 예외처리
+   다크 모드에서 형광색 하이라이트 때문에 글자가 안보이는 부분들이 있다..
+
+<br />
+
+-   약 30개 이상의 포스팅이 더 쌓이면 구글의 AdSense, AdFit 고시에 도전할 계획이다.
+
+<br />
 
 ---
 
-# To Do List
+# Review
 
-드래그 색상 변경
-...
+돌이켜보면 대충 빨리 완성하고 싶다는 마음에 더 먼 길을 돌아온 것 같다. 어설픈 '대충'이 시간을 늘리고 말았다.
 
-category + category 별 tag 조회
-TOC
-giscus
-경제카테고리 경고
-rough notation - dark theme 예외처리
-관련 게시글
+1. Gatsby Template 으로 시작에 실패했을 때 **요구사항을 명확히** 하고 SSR 을 고려했다면 바로 NextJS 를 썼을 수 있었다.
+2. Semantic-UI 사용 전에 **Document 를 더 들여다보고 커뮤니티를 살펴 보았으면** 더 익숙한 Bootstrap 을 먼저 선택 했을 수도 있다.
 
-...
-adsense
-adfit
+_+. 이 외에도 몇 가지 부족했던 부분이 있었으나 개인적으로는 나름 거쳐갔어야할 혹은 겪기 전에 깨닫기 어려웠을 수 있는 부분이라 생각하며(위로하며) 넘어가본다._
+
+위에서 언급한 개선사항들은 다음에 기억하고 되풀이 하지 않기를 다짐한다. 사실 고질적인 문제점인 것 같기도 하다.
+
+<br />
+
+**그래도 결국 _맘에드는 템플릿에 커스터마이징이 가능한 내가 원하던 블로그_ 를 얻게 되었으니 만족한다.
+그리고 이렇게 글을 쓰고 있으려니 아무리 고생하더라도 개발이 더 즐거운 것 같다.** 🎉
