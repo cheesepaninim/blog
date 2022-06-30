@@ -23,9 +23,10 @@ const siteMetadata = require('../data/siteMetadata')
             ${pages
               .map((page) => {
                 // Exclude drafts from the sitemap
-                const fm = matter(source)
+                let fm
                 if (page.search('.md') >= 1 && fs.existsSync(page)) {
                   const source = fs.readFileSync(page, 'utf8')
+                  fm = matter(source)
                   if (fm.data.draft) {
                     return
                   }
