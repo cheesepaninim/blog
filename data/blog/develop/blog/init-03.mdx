@@ -2,9 +2,9 @@
 title: '블로그개발기 (3)'
 date: '2022-06-30'
 tags: ['blog', 'react', 'next-js', 'vercel', 'tailwind', 'tailwind-nextjs-starter-blog']
-draft: true
+draft: false
 summary: 'Tailwind Nextjs Starter Blog 적용기'
-images: ['/static/images/develop/blog/init-03-01.png']
+images: [/static/images/develop/blog/init-03-01.png']
 ---
 
 # NextJS
@@ -24,81 +24,95 @@ _이 부분은 나중에 크롤링을 공부할 때 추가적으로 자세히 �
 
 ---
 
-# ..
-
-[tailwind-nextjs-starter-blog github](https://github.com/timlrx/tailwind-nextjs-starter-blog/)
-
-[blog sample](https://tailwind-nextjs-starter-blog.vercel.app/)
-![tailwind-nextjs-starter-blog sample site]('/static/images/develop/blog/init-03-01.png')
-
-![tailwind-nextjs-starter-blog deploy button]('/static/images/develop/blog/init-03-02.png')
-![Vercel starter templates]('/static/images/develop/blog/init-03-03.png')
-[Vercel](https://vercel.com/)
-
-![kakaotalk open graph images test result]('/static/images/develop/blog/init-03-04.png')
-
 # Tailwind-NextJS-Starter-Blog
 
-지난 번에 작업했던 Bootstrap 기반의 기본 레이아웃이 있었지만 이왕 새로 시작하는 김에 템플릿부터 다시 찾아보기로 했다.
+지난 번에 작업했던 Bootstrap 기반의 기본 레이아웃이 있었지만 이왕 새로 시작하는김에 템플릿부터 다시 찾아보기로 했다.
 
 nextjs blog starter로 검색해보니 처음에 나온 것이 <span color="#f36033">[tailwind-nextjs-starter-blog github](https://github.com/timlrx/tailwind-nextjs-starter-blog/)</span> 였는데 디자인이 깔끔해보이고 트렌드에 맞는 것 같아 바로 사용해보기로 했다.
 
-[blog sample](https://tailwind-nextjs-starter-blog.vercel.app/)
-![tailwind-nextjs-starter-blog sample site]('/static/images/develop/blog/init-03-01.png')
+👉 [blog sample site](https://tailwind-nextjs-starter-blog.vercel.app/)
+
+![tailwind-nextjs-starter-blog sample site](/static/images/develop/blog/init-03-01.png)
 
 <br />
 
-처음에는 Quick Start Guide 를 따라서 pliny cli 를 통해 CMD에서 설치를 해보려 했는데, 이번에도 몇 가지 에러가 발생하였다.
-https://github.com/timlrx/tailwind-nextjs-starter-blog 의 README.md 를 더 읽어보다가 상단에 Use this template 버튼을 발견했고 눌러보니 나의 계정에 repository 를 생성해서 clone 하는 것 같았다. 다행히도 이번에는 별 무리없이 `npm install` 이 완료 되었고 처음으로 스타터 템플릿 화면을 띄워 볼 수 있었다.
+1.  처음에는 Quick Start Guide 를 따라서 pliny cli 를 통해 CMD에서 설치를 해보려 했는데, 이번에도 몇 가지 에러가 발생하였다.
+    https://github.com/timlrx/tailwind-nextjs-starter-blog 의 README.md 를 더 읽어보다가 상단에 Use this template 버튼을 발견했고 눌러보니 나의 계정에 repository 를 생성해서 clone 하는 것 같았다.
 
-tailwind-nextjs-starter-blog 의 github 에서 **`README`** 를 보면 [Extend / Customize](https://github.com/timlrx/tailwind-nextjs-starter-blog#extend--customize) 가 있는데, 따라해보면 어렵지않게 개인 블로그 세팅을 할 수 있다.
+        다행히도 이번에는 별 무리없이 `npm install` 을 통해 설치가 완료 되었고 처음으로 스타터 템플릿 화면을 띄워 볼 수 있었다.
+
+        `npm ERR! Cannot read properties of null (reading 'pickAlgorithm')`
+        🤫 에러가 발생하긴 했었으나 자주 보던 에러라 바로 지나갔다.
+
+        위 에러의 경우 보통 다음 2줄의 명령어를 통해 해결된다.
+        ```cmd
+            $ npm cache clear --force
+            $ npm config set registry https://registry.npmjs.org/
+        ```
 
 <br />
 
-배포에서 에러가 발생하긴 했는데 netlify → [vercel](https://vercel.com/) 로 넘어가니 잘 되어서 무시하기로 했다.[^1]
-![tailwind-nextjs-starter-blog deploy button]('/static/images/develop/blog/init-03-02.png')
-![Vercel starter templates]('/static/images/develop/blog/init-03-03.png')
+2.  tailwind-nextjs-starter-blog 의 github 에서 **`README`** 를 보면 [Extend / Customize](https://github.com/timlrx/tailwind-nextjs-starter-blog#extend--customize) 가 있는데, 따라해보면 어렵지않게 개인 블로그 세팅을 할 수 있다.
 
-다시 한 번 **구글**[^2]과 **네이버**에 사이트 등록을 하고 **GA** 를 적용했다.
-GA 적용을 할 때 크롬에서 CSP(Content Security Policy) 문제로 살짝 삽질을 했는데
-이 템플릿에서는 CSP 를 `next.config.js`에서 따로 관리 하고 있었다.
+3.  배포에서도 에러가 발생하긴 했는데 netlify → [vercel](https://vercel.com/) 로 넘어가니 잘 되어서 무시하기로 했다.[^1]
 
-```javascript
-const ContentSecurityPolicy = `
-  default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app https://www.googletagmanager.com;
-  style-src 'self' 'unsafe-inline';
-  img-src * blob: data:;
-  media-src 'none';
-  connect-src *;
-  font-src 'self';
-  frame-src giscus.app
-`
-```
+    ![tailwind-nextjs-starter-blog deploy button](/static/images/develop/blog/init-03-02.png)
 
-위 코드에서 script-src 라인에 `https://www.googletagmanager.com` 를 추가해주면 된다.
+4.  다시 한 번 **구글**[^2]과 **네이버**에 사이트 등록을 하고 **GA** 를 적용했다.
+    GA 적용을 할 때 크롬에서 CSP(Content Security Policy) 문제로 살짝 삽질을 했는데
+    이 템플릿에서는 CSP 를 `next.config.js`에서 따로 관리 하고 있었다.
 
-_카카오톡에서 링크 공유 시 이미지가 잘 바뀌는 것도 확인하고 기분좋게 마무리_
-![kakaotalk open graph images test result]('/static/images/develop/blog/init-03-04.png')
+        ```javascript
+        const ContentSecurityPolicy = `
+            default-src 'self';
+            script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app https://www.googletagmanager.com;
+            style-src 'self' 'unsafe-inline';
+            img-src * blob: data:;
+            media-src 'none';
+            connect-src *;
+            font-src 'self';
+            frame-src giscus.app
+        `
+        ```
+
+        위 코드에서 script-src 라인에 `https://www.googletagmanager.com` 를 추가해주면 된다.
+
+5.  _카카오톡에서 링크 공유 시 이미지가 잘 바뀌는 것도 확인하고 기분좋게 마무리_
+
+    <p align={'center'}>
+        <img
+            src="/static/images/develop/blog/init-03-04.png"
+            alt="kakaotalk open graph images test result"
+        />
+    </p>
 
 <br />
 
 ---
 
-# 🔔 addon
+# addon
 
--   reactg-rough-notation
+-   react-rough-notation
+
+    → 화면에 낙서하듯 하이라이트나 밑줄, 동그라미, 박스 등의 효과를 svg 를 이용해 애니메이션으로 준다. 단순해서 사용하기 편하고 애니메이션 효과는 안나오게 할 수도 있다.
+
 -   sitemap.xml lastmod
 
 아직 기본적인 세팅 외에 추가적으로 적용한 것은 딱히 없다.
 같은 템플릿을 사용하는 사이트들을 방문해보다가 https://www.kirillso.com/ 에서 보고 react-rough-notation 에 꽂혀서 적용하였고
 sitemap 에 url 만 작성이 되길래 포스팅의 경우 lastmod 가 추가 될 수 있도록 `/scripts/generate-sitemap.js` 을 수정하였다.
 
-# ..
-
 <br />
 
 ---
+
+# 🔔 참고
+
+[![Vercel starter templates](/static/images/develop/blog/init-03-03.png)](https://vercel.com/templates)
+
+☝ 이미지 클릭
+
+vercel 이라 그런지 NextJS 를 이용한 템플릿들이 대부분이지만 Gatsby 나 CRA, Vue, Nuxt, Svelte 도 간간히 보이긴 한다.
 
 [^1]: vercel 에서 nextjs 를 개발해서 그런 것 같다.
 [^2]: google 에 등록된 sitemap.xml 이 <span color='#f36033'>가져올 수 없음</span>으로 나왔는데 접속해보면 잘 나왔다. 그래서 기다려보니 약 3일 뒤에 정상적으로 가져오기 시작했다.
