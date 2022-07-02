@@ -6,3 +6,73 @@
     font-size: 1rem;
     font-weight: bold;
 }
+
+.red {
+    color: #ff5757;
+}
+.bg-red {
+    background-color: #ff3d5a;
+}
+
+.yellow {
+    color: #ffe057;
+}
+.bg-yellow {
+    background-color: #fffa99;
+}
+
+.orange {
+    color: #fc952d;
+}
+.bg-orange {
+    background-color: #ffab57;
+}
+
+.blue {
+    color: #2d79fc;
+}
+.bg-blue {
+    background-color: #5388e6;
+}
+
+.skyblue {
+    color: #82e4ff;
+}
+.bg-skyblue {
+    background-color: #a6ecff;
+}
+
+.green {
+    color: #27e388;
+}
+.bg-green {
+    background-color: #a6ffbb;
+}
+
+.white {
+    color: #fff;
+}
+
+.bg-black {
+    background-color: #222;
+}
+.bg-trans-black {
+    background-color: rgb(0, 0, 0, 0.7);
+}
+
+.bg-transparent {
+    opacity: 0.7;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.warning {
+    font-size: 0.85rem;
+    color: #ff1800;
+    font-weight: bold;
+    background-color: rgb(255, 254, 91, 0.7);
+    text-align: center;
+    padding: 0.2rem 1rem;
+}
