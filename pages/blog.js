@@ -2,6 +2,7 @@ import { getAllCategories, getAllFilesFrontMatter } from '@/lib/mdx'
 import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayout'
 import { PageSEO } from '@/components/SEO'
+// import Category from "@/components/Category";
 
 export const POSTS_PER_PAGE = 10
 
@@ -18,15 +19,13 @@ export async function getStaticProps() {
 }
 
 export default function Blog({ posts, initialDisplayPosts, pagination, categories }) {
-    console.log(categories)
-
     return (
         <>
             <PageSEO
                 title={`Blog - ${siteMetadata.author}`}
                 description={siteMetadata.description}
             />
-
+            {/*{categories && <Category categories={categories} />}*/}
             <ListLayout
                 posts={posts}
                 initialDisplayPosts={initialDisplayPosts}
