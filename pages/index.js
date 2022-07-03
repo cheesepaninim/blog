@@ -27,6 +27,58 @@ export default function Home({ posts }) {
             <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
             <div className="divide-y divide-gray-200 dark:divide-gray-700">
                 <div className="space-y-2 pt-6 pb-8 md:space-y-5">
+                    <p align={'center'}>
+                        <img
+                            src="/static/images/monet512.png"
+                            alt="site logo image - white poodle"
+                            width={'60%'}
+                        />
+                    </p>
+                    <div className={'gate'}>
+                        <h2 className="text-center text-xl font-bold leading-9 tracking-tight text-zinc-800 dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-2xl md:leading-14">
+                            🎉 Cheesepaninim 의 Diary, Blog 입니다
+                        </h2>
+                        <ul>
+                            <li
+                                className="text-center text-base font-semibold leading-9 tracking-tight text-zinc-500 dark:text-gray-100 sm:text-base sm:leading-10 md:text-base md:leading-14"
+                                style={{ wordBreak: 'keep-all' }}
+                            >
+                                이 블로그는{' '}
+                                <a
+                                    href="https://tailwind-nextjs-starter-blog.vercel.app/"
+                                    target={'_blank'}
+                                    rel={'noreferrer'}
+                                    className={'text-teal-500'}
+                                >
+                                    tailwind-nextjs-starter-blog
+                                </a>{' '}
+                                라는 스타터 템플릿을 사용하여 개발하였으며
+                                <span className={'text-teal-500'}> 웹 개발</span>,{' '}
+                                <span className={'text-teal-500'}>경제</span>와 관련된 공부를 하며
+                                공부한 내용을 정리하고 기록하며 생각을 적고 있습니다.
+                            </li>
+                            <li
+                                className="text-center text-base font-semibold leading-9 tracking-tight text-zinc-500 dark:text-gray-100 sm:text-base sm:leading-10 md:text-base md:leading-14"
+                                style={{ wordBreak: 'keep-all' }}
+                            >
+                                추후 댓글 기능이 추가될 예정이지만 github{' '}
+                                <i className={'font-medium'}>
+                                    (개발 관련 사이트 정도로 생각해주시면 됩니다)
+                                </i>{' '}
+                                아이디를 통해서만 이용 가능합니다. 혹시나 궁금한 점이 있으시다면
+                                아래{' '}
+                                <a className={'text-teal-500'} href="#footer">
+                                    ✉ 버튼
+                                </a>
+                                을 눌러 메일을 보내주세요.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <br />
+
+                <div className="space-y-2 pt-6 pb-8 md:space-y-5">
                     <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
                         Latest
                     </h1>
