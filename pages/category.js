@@ -48,7 +48,6 @@ export default function Category({ posts, categories }) {
             />
             <div>
                 <h3 className="text-xl font-bold leading-9 tracking-tight text-gray-700 dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-3xl md:leading-14">
-                    Category : &nbsp;
                     {selected.map((p, i) => (
                         <span key={`path_${p}_${i}`}>
                             {i !== 0 && ` ${DEPTH_DIVIDER} `}
