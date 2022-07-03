@@ -76,6 +76,14 @@
     text-align: center;
     padding: 0.2rem 1rem;
 }
+.warning > p {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+.warning > p:last-child {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+}
 
 .list-item:hover {
     padding-top: calc(3rem - 2px);
