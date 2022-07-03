@@ -69,7 +69,7 @@ const LayoutWrapper = ({ children }) => {
                                 </Link>
                             ))}
                         </div>
-                        <ThemeSwitch />
+                        {/*<ThemeSwitch />*/}
                         <MobileNav />
                     </div>
                 </header>
