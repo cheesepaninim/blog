@@ -11,8 +11,6 @@ const DEPTH_DIVIDER = '>'
 const SUBLIST_SPLITTER = '/'
 
 export async function getStaticProps({ params }) {
-    console.log(params)
-
     const allPosts = await getAllFilesFrontMatter('blog')
     const categories = await getAllCategories('blog')
 

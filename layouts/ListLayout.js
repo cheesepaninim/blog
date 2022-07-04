@@ -4,7 +4,7 @@ import siteMetadata from '@/data/siteMetadata'
 import { useState } from 'react'
 import Pagination from '@/components/Pagination'
 import formatDate from '@/lib/utils/formatDate'
-import Notation from '@/components/Notation'
+import { useRouter } from 'next/router'
 
 export default function ListLayout({ posts, title, initialDisplayPosts = [], pagination }) {
     const [searchValue, setSearchValue] = useState('')
@@ -16,6 +16,11 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
     // If initialDisplayPosts exist, display it if no searchValue is specified
     const displayPosts =
         initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
+
+    const router = useRouter()
+    const linkTo = (path) => {
+        router.push(path)
+    }
 
     return (
         <>
@@ -54,7 +59,10 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                         const { slug, date, title, summary, tags } = frontMatter
                         return (
                             <li key={slug} className="list-item py-4">
-                                <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+                                <article
+                                    onClick={(_) => linkTo(`/blog/${slug}`)}
+                                    className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0"
+                                >
                                     <dl>
                                         <dt className="sr-only">Published on</dt>
                                         <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
@@ -63,13 +71,8 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                                     </dl>
                                     <div className="space-y-3 xl:col-span-3">
                                         <div>
-                                            <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                                                <Link
-                                                    href={`/blog/${slug}`}
-                                                    className="text-gray-900 dark:text-gray-100"
-                                                >
-                                                    {title}
-                                                </Link>
+                                            <h3 className="text-2xl font-bold leading-8 tracking-tight text-gray-900 dark:text-gray-100">
+                                                {title}
                                             </h3>
                                             <div className="flex flex-wrap">
                                                 {tags.map((tag) => (

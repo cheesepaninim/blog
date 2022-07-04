@@ -18,7 +18,7 @@ export async function getStaticProps() {
 
 export default function Home({ posts }) {
     const router = useRouter()
-    const linkTo = (e, path) => {
+    const linkTo = (path) => {
         router.push(path)
     }
 
@@ -92,7 +92,7 @@ export default function Home({ posts }) {
                         const { slug, date, title, summary, tags } = frontMatter
                         return (
                             <li key={slug} className="list-item py-12">
-                                <article onClick={(e) => linkTo(e, `/blog/${slug}`)}>
+                                <article onClick={(_) => linkTo(`/blog/${slug}`)}>
                                     <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                                         <dl>
                                             <dt className="sr-only">Published on</dt>
