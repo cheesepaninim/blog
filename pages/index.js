@@ -7,6 +7,8 @@ import formatDate from '@/lib/utils/formatDate'
 
 import NewsletterForm from '@/components/NewsletterForm'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import Loading from '@/components/Loading'
 
 const MAX_DISPLAY = 3
 
@@ -17,13 +19,16 @@ export async function getStaticProps() {
 }
 
 export default function Home({ posts }) {
+    const [loading, setLoading] = useState(false)
     const router = useRouter()
     const linkTo = (path) => {
+        setLoading(true)
         router.push(path)
     }
 
     return (
         <>
+            {loading && <Loading />}
             <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
             <div className="divide-y divide-gray-200 dark:divide-gray-700">
                 <div className="space-y-2 pt-6 pb-8 md:space-y-5">

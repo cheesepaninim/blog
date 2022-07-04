@@ -1,3 +1,20 @@
+/*body {*/
+/*!*body::after {*!*/
+/*    !*content: "";*!*/
+/*    !*position: fixed;*!*/
+/*    !*top: 0px;*!*/
+/*    !*left: 0px;*!*/
+/*    !*bottom: 0px;*!*/
+/*    !*right: 0px;*!*/
+/*    !*height: 100%;*!*/
+/*    background: url('../images/Twinkle Star-0.7s-1035px.png') center center fixed;*/
+/*    opacity: 0.8;*/
+/*    -webkit-background-size: cover;*/
+/*    -moz-background-size: cover;*/
+/*    -o-background-size: cover;*/
+/*    background-size: cover;*/
+/*}*/
+
 ::selection {
     background-color: #d1fff0;
 }
