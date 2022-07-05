@@ -1,0 +1,85 @@
+---
+title: 'Javascript 에서 async 함수 다루기 - async-waterfall'
+date: '2022-07-05T21:00:00.000+09:00'
+tags: ['js', 'async', 'async-waterfall']
+draft: true
+summary: 'async-waterfall 라이브러리를 활용해서 async 함수를 편하게 호출하고 관리하기'
+images: []
+---
+
+## 비동기 함수
+
+Javascript 에서는 비동기 함수들을 처리해야 할 때가 있다. 제일 단순한 예를 들면, `setTimeout`, `setInterval` 이 있다.
+
+setTimeout 함수는 인자를 2개 받는다. callback 함수와 callback 함수가 실행 될 시간.
+
+```
+const timeout = 1000 * 60
+
+setTimeout(function(){}, time)
+```
+
+배달을 예로 들어보겠다. 매장에서는 배달 주문이 들어오면 요리를 하고 배달을 가야한다.
+
+```
+const orderFood = food => {
+    getOrder(food, makeFood)
+}
+
+const getOrder = (food, callback) => {
+    setTimeout(() => {
+        console.log(`${food} ordered!`)
+        callback(`deilicous ${food}`, deliverFood)
+    }, 1000 * 1)
+}
+
+const makeFood = (food, callback) => {
+    setTimeout(() => {
+        console.log(`${food} cooked!`)
+        callback(`cooked ${food}`)
+    }, 1000 * 5)
+}
+
+const deliverFood = food => {
+    setTimeout(() => {
+        return console.log(`${food} delivered!`)
+    }, 1000 * 2)
+}
+
+orderFood('Pizza')
+```
+
+위에거 우선 콜백 헬 구조로 작성 후 변경
+상당히 불편 + 종속성 + 길어질수록 불편 => callback hell
+
+```
+const orderFood = food => {
+    getOrder(food, makeFood)
+}
+
+const getOrder = (food, callback) => {
+    setTimeout(() => {
+        console.log(`${food} ordered!`)
+        callback(`deilicous ${food}`, deliverFood)
+    }, 1000 * 1)
+}
+
+const makeFood = (food, callback) => {
+    setTimeout(() => {
+        console.log(`${food} cooked!`)
+        callback(`cooked ${food}`)
+    }, 1000 * 5)
+}
+
+const deliverFood = food => {
+    setTimeout(() => {
+        return console.log(`${food} delivered!`)
+    }, 1000 * 2)
+}
+
+orderFood('Pizza')
+```
+
+## async-waterfall
+
+[async-waterfall](https://www.npmjs.com/package/async-waterfall)
