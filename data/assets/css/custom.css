@@ -92,6 +92,7 @@
     background-color: rgb(255, 254, 91, 0.7);
     text-align: center;
     padding: 0.2rem 1rem;
+    margin-top: 1rem;
 }
 .warning > span {
     display: inline-block;
