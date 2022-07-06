@@ -20,7 +20,7 @@ setTimeout(function(){}, time)
 ```
 
 비동기 함수들을 동기적으로 실행하는 가장 단순한 방법은 콜백이다.
-배달을 예로 들어보겠다. 매장에서는 배달 주문이 들어오면 요리를 하고 배달을 가야한다.
+매장의 배달을 예로 들어보겠다. 매장에서는 배달 주문이 들어오면 요리를 하고 배달을 가야한다.
 
 ```
 const getOrderTime = 1000 * 1
@@ -120,8 +120,48 @@ waterfall([...tasks], callback)
 
 [^2]: 필요 없을 경우 첫 번째 값으로 null 전달
 
-- 위에서 작성한 코드 바꿔보기
-- 불편한점
+위에서 작성했던 코드를 바꾸어보자.
+
+```
+const getOrder = (callback, food) => {
+    setTimeout(() => {
+        console.log(`${food} ordered!`)
+        callback(null, `deilicous ${food}`)
+    }, 1000 * 1)
+}
+
+const makeFood = (food, callback) => {
+    setTimeout(() => {
+        console.log(`${food} cooked!`)
+        callback(null, `cooked ${food}`)
+    }, 1000 * 5)
+}
+
+const deliverFood = (food, callback) => {
+    setTimeout(() => {
+        console.log(`${food} delivered!`)
+        callback(null, 'Delivery The End')
+    }, 1000 * 2)
+}
+
+const order = food => {
+    waterfall([(callback) => getOrder(callback, food), makeFood, deliverFood], (err, result) => {
+        err ? console.log(`err : ${err}`) : console.log(`result : ${result}`)
+    })
+}
+
+order('pizza')
+```
+
+이렇게 쓰면 order 함수 에서 waterfall 함수 부분만 보더라도 한 눈에 파악이 가능하다.
+그리고 각각의 task 에서 callback 을 통해 에러를 던지고 마지막 콜백에서 받아서 처리할 수 있다.
+
+다만 개인적으로는 2가지의 약간 불편한 점이 있었다.
+
+1. task 마다 callback 을 몇 번째 인자로 받는지가 다르다.
+2. task 에서 callback 호출 시 항상 첫 번째 인자로 null 을 전달해야 한다.(예외처리가 필요 없는 경우)
+
+다음 포스팅에서는 이 두 가지를 보완하여 개인적으로 만든 waterfall 함수를 소개하겠다.
 
 --- 여기는 다음 포스팅
 - 9년전에 만들어졌지만 어려움
