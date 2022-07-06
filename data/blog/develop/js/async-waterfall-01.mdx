@@ -1,56 +1,63 @@
 ---
-title: 'Javascript 에서 async 함수 다루기 - async-waterfall'
-date: '2022-07-05T21:00:00.000+09:00'
+title: 'JS 에서 async 함수 다루기 #1 : async-waterfall'
+date: '2022-07-06T23:51:00.000+09:00'
 tags: ['js', 'async', 'async-waterfall', 'callback hell']
-draft: true
-summary: 'async-waterfall 라이브러리를 활용해서 async 함수를 편하게 호출하고 관리하기'
-images: []
+draft: false
+summary: 'javascript 에서 async-waterfall 라이브러리를 활용해서 async 함수를 편하게 호출하고 관리하기, async 함수의 동기적 호출'
+images: ['/static/images/develop/js/async-waterfall-01.png']
 ---
 
 ## 비동기 함수
 
-Javascript 에서는 비동기 함수들을 처리해야 할 때가 있다. 제일 단순한 예를 들면, `setTimeout`, `setInterval` 이 있다.
+#### 비동기 함수와 콜백 함수
 
-setTimeout 함수는 인자를 2개 받는다. callback 함수와 callback 함수가 실행 될 시간.
+Javascript 에서는 비동기 함수들을 처리해야 할 때가 있다. 제일 단순한 예를 들면 `setTimeout`, `setInterval` 이 있다.
 
-```
+```javascript
+const callback = () => console.log('the end')
 const timeout = 1000 * 60
 
-setTimeout(function(){}, time)
+setTimeout(callback, timeout)
 ```
 
 비동기 함수들을 동기적으로 실행하는 가장 단순한 방법은 콜백이다.
-매장의 배달을 예로 들어보겠다. 매장에서는 배달 주문이 들어오면 요리를 하고 배달을 가야한다.
+매장의 배달을 예로 들어보겠다. 매장에서는 배달 주문이 들어오면 주문을 받고 요리를 해서 배달을 가야한다.👇
 
-```
+```javascript
 const getOrderTime = 1000 * 1
 const makeFoodTime = 1000 * 5
 const deliverFoodTime = 1000 * 2
 
-const order = food => {
+const order = (food) => {
     setTimeout(() => {
         console.log(`${food} ordered!`)
 
         setTimeout(() => {
             console.log(`${food} cooked!`)
-            
+
             setTimeout(() => {
                 return console.log(`${food} delivered!`)
-            }, deilverFoodTime)
-
+            }, deliverFoodTime)
         }, makeFoodTime)
-
     }, getOrderTime)
 }
 
 order('Pizza')
 ```
 
-`Callback hell` 이다. 아직까진 코드가 길지 않아서 괜찮지만 내용이 길어질 수록 복잡해지고 유지보수가 복잡해질 것이 뻔하다.
+callback 함수의 중첩으로 이루어진 **Callback hell** 이다.
+
+#### Callback hell 탈출?
+
+아직까진 코드가 길지 않아서 괜찮지만 내용이 길어질 수록 복잡해지고 유지보수가 복잡해질 것이 뻔하다.
 조금 보기 좋게 리팩토링을 해보자 👇
 
-```
-const order = food => {
+```javascript
+const getOrderTime = 1000 * 1
+const makeFoodTime = 1000 * 5
+const deliverFoodTime = 1000 * 2
+
+const order = (food) => {
     getOrder(food, makeFood)
 }
 
@@ -58,93 +65,105 @@ const getOrder = (food, callback) => {
     setTimeout(() => {
         console.log(`${food} ordered!`)
         callback(`deilicous ${food}`, deliverFood)
-    }, 1000 * 1)
+    }, getOrderTime)
 }
 
 const makeFood = (food, callback) => {
     setTimeout(() => {
         console.log(`${food} cooked!`)
         callback(`cooked ${food}`)
-    }, 1000 * 5)
+    }, makeFoodTime)
 }
 
-const deliverFood = food => {
+const deliverFood = (food) => {
     setTimeout(() => {
         return console.log(`${food} delivered!`)
-    }, 1000 * 2)
+    }, deliverFoodTime)
 }
 
 order('Pizza')
 ```
 
-처음보다는 나아졌지만 여전히 흐름이 눈에 들어오지 않는 것 같다. 
+처음보다는 나아졌지만 여전히 흐름이 눈에 들어오지 않는 것 같다.
 또한 순서에 맞도록 콜백 함수를 전달해주어야 하는데 각각의 함수에서 전달을 해주다보니 흐름을 보려면 함수 내부를 하나하나 들여다 보아야 한다.
 
 ## async-waterfall
 
+#### async-waterfall (contributed by es128) 소개
+
 [async-waterfall](https://www.npmjs.com/package/async-waterfall) 은 async 함수(task)들의 모음을 순차적으로 실행하며 다음 task 에 값을 전달할 수 있다.[^1]
 
-[^1]: 각각의 task 들이 인과관계가 없고 순차적 실행만 필요하다면 [async-series](https://www.npmjs.com/package/async-series) 를 고려해보면 좋을 것 같다.
-async-series 에서 각각의 tasks 에서 전달한 모든 값은 callback 함수에서 모두 받는다.
+[^1]:
+    각각의 task 들이 인과관계가 없고 순차적 실행만 필요하다면 [async-series](https://www.npmjs.com/package/async-series) 를 고려해보면 좋을 것 같다.
+    async-series 에서 각각의 tasks 에서 전달한 모든 값은 callback 함수에서 모두 받는다.
 
 사실 요즘에는 Promise 나 async-await 패턴을 많이 쓰긴 하지만 예전에 썼던 기억도 있고 여전히 쓰기 좋을 것 같아서 가져와보았다.
 그리고 개인적으로 만들어본 waterfall 함수가 있는데 다음 포스팅에서 다뤄볼 예정이라 미리 async-waterfall 에 대해 글을 써보고 있다.
 
-[READEME.md](https://github.com/es128/async-waterfall#readme) 를 보면 아래와 같이 사용법이 있다.
+async-waterfall 의 [READEME.md](https://github.com/es128/async-waterfall#readme) 를 보면 아래와 같이 사용법이 있다.
 
-```
-waterfall([
-  function(callback){
-    callback(null, 'one', 'two');
-  },
-  function(arg1, arg2, callback){
-    callback(null, 'three');
-  },
-  function(arg1, callback){
-    // arg1 now equals 'three'
-    callback(null, 'done');
-  }
-], function (err, result) {
-  // result now equals 'done'
-});
+```javascript
+waterfall(
+    [
+        function (callback) {
+            callback(null, 'one', 'two')
+        },
+        function (arg1, arg2, callback) {
+            callback(null, 'three')
+        },
+        function (arg1, callback) {
+            // arg1 now equals 'three'
+            callback(null, 'done')
+        },
+    ],
+    function (err, result) {
+        // result now equals 'done'
+    }
+)
 ```
 
 첫 번째 인자로 실행할 비동기 함수들의 모음을 배열로 받고, 두 번째 인자로 함수들의 실행이 전부 끝났거나 에러가 발생한 경우 처리할 콜백 함수를 전달한다.
 
-```
+```javascript
 waterfall([...tasks], callback)
 ```
 
-각각의 task 에서는 이전 task 에서 넘겨준 arguments 와 callback 을 받고 원하는 시점에 callback 을 호출하며 다음 task 로 인자를 전달한다.
+각각의 task(async 함수) 에서는 이전 task 에서 넘겨준 arguments 와 callback 을 받고 원하는 시점에 callback 을 호출하며 다음 task 로 인자를 전달한다.
 예외처리가 필요한 경우 callback 호출 시 첫번 째 인자로 값을 전달하면[^2] 다음 task 가 실행되지 않고 바로 callback 이 실행된다.
 
 [^2]: 필요 없을 경우 첫 번째 값으로 null 전달
 
-위에서 작성했던 코드를 바꾸어보자.
+#### async-waterfall 사용 예제
 
-```
+위에서 작성했던 코드를 **async-waterfall** 을 사용해서 바꾸어보자.👇
+
+```javascript
+const getOrderTime = 1000 * 1
+const makeFoodTime = 1000 * 5
+const deliverFoodTime = 1000 * 2
+
 const getOrder = (callback, food) => {
     setTimeout(() => {
         console.log(`${food} ordered!`)
         callback(null, `deilicous ${food}`)
-    }, 1000 * 1)
+    }, getOrderTime)
 }
 
 const makeFood = (food, callback) => {
     setTimeout(() => {
         console.log(`${food} cooked!`)
         callback(null, `cooked ${food}`)
-    }, 1000 * 5)
+    }, makeFoodTime)
 }
 
 const deliverFood = (food, callback) => {
     setTimeout(() => {
         console.log(`${food} delivered!`)
         callback(null, 'Delivery The End')
-    }, 1000 * 2)
+    }, deliverFoodTime)
 }
 
-const order = food => {
+const order = (food) => {
     waterfall([(callback) => getOrder(callback, food), makeFood, deliverFood], (err, result) => {
         err ? console.log(`err : ${err}`) : console.log(`result : ${result}`)
     })
@@ -153,18 +172,17 @@ const order = food => {
 order('pizza')
 ```
 
-이렇게 쓰면 order 함수 에서 waterfall 함수 부분만 보더라도 한 눈에 파악이 가능하다.
+이렇게 쓰면 order 함수에서 waterfall 함수에 전달하는 함수들만 보더라도 한 눈에 파악이 가능하다.[^3]
 그리고 각각의 task 에서 callback 을 통해 에러를 던지고 마지막 콜백에서 받아서 처리할 수 있다.
+또, waterfall 내에서 함수의 순서를 변경하거나 추가, 제거하기가 용이하다.👍
 
-다만 개인적으로는 2가지의 약간 불편한 점이 있었다.
+[^3]: 선언적 프로그래밍을 하면 더욱 보기가 편하다.
+
+---
+
+📌 다만 개인적으로는 2가지의 약간 불편한 점이 있었다.
 
 1. task 마다 callback 을 몇 번째 인자로 받는지가 다르다.
 2. task 에서 callback 호출 시 항상 첫 번째 인자로 null 을 전달해야 한다.(예외처리가 필요 없는 경우)
 
 다음 포스팅에서는 이 두 가지를 보완하여 개인적으로 만든 waterfall 함수를 소개하겠다.
-
---- 여기는 다음 포스팅
-- 9년전에 만들어졌지만 어려움
-- 여전히 제법 씀
-- 내가 만든 코드 소개
-- npm 등록 예정

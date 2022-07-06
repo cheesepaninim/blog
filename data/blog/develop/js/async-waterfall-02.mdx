@@ -1,0 +1,58 @@
+---
+title: 'JS 에서 async 함수 다루기 #2 : async-waterfall 함수 만들어보기'
+date: '2022-07-07T22:00:00.000+09:00'
+tags: ['js', 'async', 'async-waterfall', 'callback hell', '개인 라이브러리']
+draft: true
+summary: 'javascript 에서 async 함수의 동기적 호출을 도와주는 async-waterfall 만들어보기'
+images: []
+---
+
+<details expand={true}>
+    <div markdown={'1'}>
+        - 9년전에 만들어졌지만 어려움 - 여전히 제법 씀 - 내가 만든 코드 소개 - npm 등록 예정
+    </div>
+</details>
+
+```javascript
+const getOrderTime = 1000 * 1
+const makeFoodTime = 1000 * 5
+const deliverFoodTime = 1000 * 2
+
+const getOrder = (callback, food) => {
+    setTimeout(() => {
+        console.log(`${food} ordered!`)
+        callback(null, `deilicous ${food}`)
+    }, getOrderTime)
+}
+
+const makeFood = (food, callback) => {
+    setTimeout(() => {
+        console.log(`${food} cooked!`)
+        callback(null, `cooked ${food}`)
+    }, makeFoodTime)
+}
+
+const deliverFood = (food, callback) => {
+    setTimeout(() => {
+        console.log(`${food} delivered!`)
+        callback(null, 'Delivery The End')
+    }, deliverFoodTime)
+}
+
+const order = (food) => {
+    waterfall([(callback) => getOrder(callback, food), makeFood, deliverFood], (err, result) => {
+        err ? console.log(`err : ${err}`) : console.log(`result : ${result}`)
+    })
+}
+
+order('pizza')
+```
+
+---
+
+다만 개인적으로는 2가지의 약간 불편한 점이 있었다.
+
+1. task 마다 callback 을 몇 번째 인자로 받는지가 다르다.
+2. task 에서 callback 호출 시 항상 첫 번째 인자로 null 을 전달해야 한다.(예외처리가 필요 없는 경우)
+
+다음 포스팅에서는 이 두 가지를 보완하여 개인적으로 만든 waterfall 함수를 소개하겠다.
