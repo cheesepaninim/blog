@@ -16,16 +16,15 @@ export default function Footer() {
                 </div>
                 <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
                     <Link href="/">{siteMetadata.headerTitle}</Link>
-                    <div>{siteMetadata.email}</div>
                     <div>
                         <i>{` • `}</i>
                     </div>
+                    <div>{`© ${new Date().getFullYear()}`}</div>
+                    <div>{siteMetadata.author}</div>
                     <div>
-                        <i>{`© ${new Date().getFullYear()}`}</i>
+                        <i>{` • `}</i>
                     </div>
-                    <div>
-                        <i>{siteMetadata.author}</i>
-                    </div>
+                    <div>{siteMetadata.email}</div>
                 </div>
                 <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
                     <Link href="https://github.com/timlrx/tailwind-nextjs-starter-blog">
