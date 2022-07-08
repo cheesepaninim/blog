@@ -15,9 +15,8 @@ export default function Footer() {
                     <SocialIcon kind="twitter" href={siteMetadata.twitter} size="6" />
                 </div>
                 <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                    <Link href="/">
-                        <i>{siteMetadata.headerTitle}</i>
-                    </Link>
+                    <Link href="/">{siteMetadata.headerTitle}</Link>
+                    <div>{siteMetadata.email}</div>
                     <div>
                         <i>{` • `}</i>
                     </div>
