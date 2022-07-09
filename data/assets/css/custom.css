@@ -16,7 +16,9 @@
 /*}*/
 
 ::selection {
-    background-color: #d1fff0;
+    /*background-color: #d1fff0;*/
+    background-color: #171717;
+    color: #fdffea;
 }
 
 .toc-list {
