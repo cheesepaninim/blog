@@ -95,7 +95,7 @@ order('Pizza')
 
 [^1]:
     각각의 task 들이 인과관계가 없고 순차적 실행만 필요하다면 [async-series](https://www.npmjs.com/package/async-series) 를 고려해보면 좋을 것 같다.
-    async-series 에서 각각의 tasks 에서 전달한 모든 값은 callback 함수에서 모두 받는다.
+    ~~async-series 에서 각각의 tasks 에서 전달한 모든 값은 callback 함수에서 모두 받는다.~~ => async.series
 
 사실 요즘에는 Promise 나 async-await 패턴을 많이 쓰긴 하지만 예전에 썼던 기억도 있고 여전히 쓰기 좋을 것 같아서 가져와보았다.
 그리고 개인적으로 만들어본 waterfall 함수가 있는데 다음 포스팅에서 다뤄볼 예정이라 미리 async-waterfall 에 대해 글을 써보고 있다.
