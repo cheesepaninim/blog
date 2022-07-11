@@ -1,0 +1,166 @@
+---
+title: 'JS 에서 async 함수 다루기 #2 : async.series & async-series'
+date: '2022-07-10T00:49:00.000+09:00'
+tags: ['js', 'async', 'async.series', 'async-series', 'callback hell']
+draft: false
+summary: 'javascript 에서 async.series 라이브러리를 활용해서 async 함수를 편하게 호출하고 관리하기, async 함수의 동기적 호출'
+images: ['/static/images/develop/js/async.series-01-thumb.png']
+---
+
+## async.series
+
+!['async 라이브러리 사이트 이미지'](/static/images/develop/js/async.series-01.png)
+
+오늘은 [async.series](https://caolan.github.io/async/v3/docs.html#series) 라이브러리를 소개하려고 한다.
+
+원래는 저번 포스팅에 이이서 개인적으로 만든 라이브러리[^1]를 포스팅할까 했지만 npm 배포까지 진행 후에 하려고 아껴두기로 했다.
+
+[^1]: 라이브러리라고 부르기엔 아직 보잘 것 없지만..
+
+async-series 는 지난 포스팅 - [JS에서 async 함수 다루기 #1](https://cheesepaninim.vercel.app/blog/develop/js/async-waterfall-01) 에서 소개한
+**async-waterfall** 과 마찬가지로 비동기 함수를 편하게 다룰 수 있도록 도와주는 라이브러리이다.
+
+사실은 아래에서 소개할 async-series 를 얘기할 예정이었는데, 내가 착각을 한건지 기억하고 있던 사용법이 async.series 였다.
+
+다만, https://caolan.github.io/async/v3/ 이 곳을 둘러보니 async 관련해서 쓸 수 있는 함수가 다양하게 구성되어 있는 것 같아 한 번 살펴보면 좋을 것 같다.🎁
+
+#### async.series 사용 예제
+
+```
+$ npm i async
+// or
+$ yarn add async
+```
+
+우선 npm 또는 yarn 을 이용해 설치를 진행한다.
+
+이번엔 기업의 채용 프로세스를 예시로 들어보자.
+
+A 기업의 채용 과정은 아래 순서로 진행된다.
+
+1. 서류
+2. 기술 면접
+3. 입원 면접
+4. 채용 - 계약서 작성
+
+1 ~ 3까지의 결과는 불합격만 되지 않는다면 다음 과정에서 영향이 없다.
+어떤 단계에서 불합격 될 경우 그 다음 과정이 진행되지 않는다.
+1 ~ 3번의 평가는 4 에서 계약서 작성 시 연봉의 판단 기준이 된다.
+
+위와 같이 진행된다고 할 때 1,2,3 의 과정은 tasks 가 될 것이고 4 는 callback 이 될 것이다.
+
+**예제**
+
+```javascript
+import series from 'async/series'
+
+const time_1 = 100 * 3
+const time_2 = 100 * 2
+const time_3 = 100 * 5
+const docTest = (callback) => {
+    setTimeout(() => {
+        const score = 21 // 점수
+        const isPass = score >= 15 // 합격여부
+        console.log(`pass docTest!`)
+        callback(isPass ? null : 'fail from docTest!', score)
+    }, time_1)
+}
+
+const techTest = (callback) => {
+    setTimeout(() => {
+        const score = 30 // 점수
+        const isPass = score >= 30 // 합격여부
+        console.log(`pass techTest!`)
+        callback(isPass ? null : 'fail from techTest!', score)
+    }, time_2)
+}
+
+const executiveTest = (callback) => {
+    setTimeout(() => {
+        const score = 33 // 점수
+        const isPass = score >= 25 // 합격여부
+        console.log(`pass executiveTest!`)
+        callback(isPass ? null : 'fail from executiveTest!', score)
+    }, time_3)
+}
+
+const recruit = () => {
+    series([docTest, techTest, executiveTest], (err, result) => {
+        err ? console.log(`err : ${err}`) : console.log(result) // [21, 30, 33]
+    })
+}
+
+recruit()
+```
+
+지난 포스팅에서 소개했던 async-waterfall 과 매우 유사하지만 두 가지가 다르다.
+
+1. task 에서 받는 인자가 callback 하나로 고정되어 있다.
+   순차적으로만 실행될 뿐 의존성이 없고 다음 task 에 값을 전달하지 못한다.
+   그래서 async-waterfall 보다 더 단순해보이고 사용하기 편한 것 같다.
+
+2. 에러 없이 정상 동작되어 callback 함수가 실행 될 때 result 에서 모든 task 가 전달한 값을 배열 형태로 받는다.
+   waterfall 에서는 callback 에서 전달한 값들이(에러 제외) 다음 task 로 전달되었다면,
+   series 에서는 callback 함수의 result 배열에 하나하나 쌓인다는 점이다.
+
+**waterfall 과 series 는 사용해야되는 케이스가 다르니 각각 상황에 맞추어 쓰면 될 것 같다.** [^2]
+
+[^2]: 이 외에도 async parallel 도 자주 썼는데 요즘엔 개인적으로 Promise.all 을 자주 사용했다.
+
+<br />
+
+---
+
+## async-series
+
+![async-series 라이브러리 사이트 이미지](/static/images/develop/js/async-series-01.png)
+
+<br />
+
+> Run a series of callbacks in sequence, as simply as possible.
+
+[async-series](https://www.npmjs.com/package/async-series) 는 소개에도 설명되었듯이 async 함수의 순차적 실행만을 목적으로 가능한 간단히 만들었다고 한다.[^3]
+
+[^3]: 이 라이브러리도 무려 9년 전에 개발되었으나 여전히 많이 쓰이고 있다.
+
+원래 소개하려했던 series 라이브러리의 이름이 **async-series** 였는데 기억하고 있던 사용법이 달라서 아래로 내렸다.
+
+```javascript
+series([...tasks], callback)
+```
+
+async-series 역시 `done` 이라는 argument 이름으로 예시를 들었지만 waterfall 과 마찬가지로 callback 을 각각의 task 에서 받아 원하는 시점에 호출하도록 설계되어 있다.
+
+간단히 설명하면, 아래와 같이 진행된다.
+
+1. tasks 의 함수를 순차적으로 실행
+2. done 함수 호출 시 다음 task 함수 실행
+3. done 함수에 값 전달 시 다음 task 로 넘어가지 않고 callback 함수 실행
+   (Error 객체를 전달하지 않아도 에러로 인식)
+4. done 함수에 값이 전달되지 않으면 마지막 task 까지 실행 후 callback 함수 실행
+
+```javascript
+series(
+    [
+        function (done) {
+            console.log('first thing')
+            done()
+        },
+        function (done) {
+            console.log('second thing')
+            done(new Error('another thing'))
+        },
+        function (done) {
+            // never happens, because "second thing"
+            // passed an error to the done() callback
+        },
+    ],
+    function (err) {
+        console.log(err.message) // "another thing"
+    }
+)
+```
+
+각각의 task 에서 값을 마지막 callback 으로 값을 전달하지 못하는 부분이 아쉬울 순 있지만 task 구조나 작성이 매우 단순하고 편리해 보인다.
+
+특정 스코프 내에서 지역변수를 공유해도 될 것 같고 아니면 정말 단순히 순차적 실행을 보장하는 정도로만 사용한다면 간단히 편리하게 쓰기 좋은 것 같다.

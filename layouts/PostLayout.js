@@ -104,8 +104,8 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                             {slug.startsWith('economy/') && (
                                 <p className="warning">
                                     <span>
-                                        📢 이제 막 공부를 시작한 주린이입니다. 이곳은 저의 개인적인 생각
-                                        혹은 공부한 내용을 담고 있으며,
+                                        📢 이제 막 공부를 시작한 주린이입니다. 이곳은 저의 개인적인
+                                        생각 혹은 공부한 내용을 담고 있으며,
                                         <br />
                                         틀린 부분도 많을 수 있으니 투자에 참고조차 하지 않으시길
                                         바랍니다.
@@ -115,7 +115,8 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                                         📢 혹시나 내용 관련하여 틀린 점이나 부족한 점에 대해서 혹은
                                         궁금한 점은 화면
                                         <br />
-                                        최하단 <a href="#footer">✉</a> 버튼을 눌러 메일을 보내주세요.
+                                        최하단 <a href="#footer">✉</a> 버튼을 눌러 메일을
+                                        보내주세요.
                                     </span>
                                 </p>
                             )}
@@ -129,7 +130,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                                 {` • `}
                                 <Link href={editUrl(fileName)}>{'View on GitHub'}</Link>
                             </div>
-                            {/*<Comments frontMatter={frontMatter} />*/}
+                            <Comments frontMatter={frontMatter} />
                         </div>
                         <footer>
                             <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
