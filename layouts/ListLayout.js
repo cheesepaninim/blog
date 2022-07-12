@@ -62,38 +62,41 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                     {displayPosts.map((frontMatter) => {
                         const { slug, date, title, summary, tags, images } = frontMatter
                         return (
-                            <li key={slug} className="list-item py-4">
+                            <li key={slug} className="list-item py-12">
                                 <article
                                     onClick={(_) => linkTo(`/blog/${slug}`)}
                                     className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0"
                                 >
-                                    <div className="flex flex-col">
-                                        <div className="flex justify-center pb-4 xl:block xl:justify-start xl:pb-0">
-                                            <img src={images[0] || '/static/images/monet512.png'} alt="thumb image" 
-                                                 width="180px" height="120px"
-                                            />
-                                        </div>
-                                        <dl>
-                                            <dt className="sr-only">Published on</dt>
-                                            <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                                                <time dateTime={date}>{formatDate(date)}</time>
-                                            </dd>
-                                        </dl>
-                                    </div>
-                                    
-                                    <div className="space-y-3 xl:col-span-3">
-                                        <div>
-                                            <h3 className="text-2xl font-bold leading-8 tracking-tight text-gray-900 dark:text-gray-100">
-                                                {title}
-                                            </h3>
-                                            <div className="flex flex-wrap">
-                                                {tags.map((tag) => (
-                                                    <Tag key={tag} text={tag} />
-                                                ))}
+                                    <div class="space-y-2 grid xl:grid-rows-2 xl:grid-cols-4 xl:grid-flow-col xl:space-y-0 gap-2 xl:gap-4">
+                                        <div class="xl:row-span-2">
+                                            <div style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;">
+                                                <div style="display: block; box-sizing: border-box; padding-top: 62.5%;">
+                                                </div>
+                                                <img alt="thumg image" className="rounded object-cover" src={images[0] || "/static/images/monet512.png"} style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;">
                                             </div>
                                         </div>
-                                        <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                                            {summary}
+                                        <div class="order-first xl:order-none xl:col-span-2 space-y-6">
+                                            <div>
+                                                <dl>
+                                                    <dt className="sr-only">Published on</dt>
+                                                    <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                                                        <time dateTime={date}>{formatDate(date)}</time>
+                                                    </dd>
+                                                </dl>
+                                                <h2 class="text-2xl font-bold leading-8 tracking-tight">
+                                                    <a class="text-gray-900 dark:text-gray-100" href="/recettes/gateau-au-yaourt">{title}</a>
+                                                </h2>
+                                                <div class="flex flex-wrap">
+                                                    {tags.map((tag) => (
+                                                        <Tag key={tag} text={tag} />
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="xl:row-span-1 xl:col-span-2">
+                                            <div class="prose text-gray-500 max-w-none dark:text-gray-400">
+                                                {summary}
+                                            </div>
                                         </div>
                                     </div>
                                 </article>
