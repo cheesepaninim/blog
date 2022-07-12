@@ -62,10 +62,9 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                     {displayPosts.map((frontMatter) => {
                         const { slug, date, title, summary, tags, images } = frontMatter
                         return (
-                            <li key={slug} className="list-item py-12">
+                            <li key={slug} className="list-item py-4">
                                 <article
                                     onClick={(_) => linkTo(`/blog/${slug}`)}
-                                    className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0"
                                 >
                                     <div className="space-y-2 grid xl:grid-rows-2 xl:grid-cols-4 xl:grid-flow-col xl:space-y-0 gap-2 xl:gap-4">
                                         <div className="xl:row-span-2">
