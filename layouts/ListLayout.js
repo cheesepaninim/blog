@@ -67,8 +67,8 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                                     onClick={(_) => linkTo(`/blog/${slug}`)}
                                     className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0"
                                 >
-                                    <div class="flex flex-col">
-                                        <div class="flex justify-center pb-4 xl:block xl:justify-start xl:pb-0">
+                                    <div className="flex flex-col">
+                                        <div className="flex justify-center pb-4 xl:block xl:justify-start xl:pb-0">
                                             <img src={images[0] || '/static/images/monet512.png'} alt="thumb image" 
                                                  width="180px" height="120px"
                                             />
