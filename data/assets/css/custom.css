@@ -110,10 +110,16 @@
     padding: 1rem;   
 }
 
+
 .list-item:hover {
+    padding-top: calc(1rem - 2px);
+    padding-bottom: calc(1rem - 2px);
+    background-color: rgb(250, 255, 200, 0.7);
+}
+
+.list-item.py-4:hover {
     padding-top: calc(3rem - 2px);
     padding-bottom: calc(3rem - 2px);
-    background-color: rgb(250, 255, 200, 0.7);
 }
 
 .list-item:hover > article {
