@@ -33,7 +33,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                     <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
                         {title}
                     </h1>
-                    <div className="relative max-w-lg">
+                    <div className="relative max-w-md">
                         <input
                             aria-label="Search articles"
                             type="text"
@@ -66,8 +66,8 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                                 <article
                                     onClick={(_) => linkTo(`/blog/${slug}`)}
                                 >
-                                    <div className="space-y-2 grid lg:grid-rows-2 lg:grid-cols-4 lg:grid-flow-col lg:space-y-0 gap-2 lg:gap-4">
-                                        <div className="lg:row-span-2">
+                                    <div className="space-y-2 grid md:grid-rows-2 md:grid-cols-4 md:grid-flow-col md:space-y-0 gap-2 md:gap-4">
+                                        <div className="md:row-span-2">
                                             <div style={{
                                                         display: "block",
                                                         overflow: "hidden",
@@ -98,7 +98,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                                                 }}/>
                                             </div>
                                         </div>
-                                        <div className="order-first lg:order-none lg:col-span-3 space-y-6">
+                                        <div className="order-first md:order-none md:col-span-3 space-y-6">
                                             <div>
                                                 <dl>
                                                     <dt className="sr-only">Published on</dt>
@@ -116,7 +116,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="lg:row-span-1 lg:col-span-3">
+                                        <div className="md:row-span-1 md:col-span-3">
                                             <div className="prose text-gray-500 max-w-none dark:text-gray-400">
                                                 {summary}
                                             </div>
