@@ -69,10 +69,34 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                                 >
                                     <div className="space-y-2 grid xl:grid-rows-2 xl:grid-cols-4 xl:grid-flow-col xl:space-y-0 gap-2 xl:gap-4">
                                         <div className="xl:row-span-2">
-                                            <div style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;">
-                                                <div style="display: block; box-sizing: border-box; padding-top: 62.5%;">
-                                                </div>
-                                                <img alt="thumg image" className="rounded object-cover" src={images[0] || "/static/images/monet512.png"} style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;" />
+                                            <div style={{
+                                                        display: "block",
+                                                        overflow: "hidden",
+                                                        position: "relative",
+                                                        boxSizing: "border-box", 
+                                                        margin: "0px"
+                                            }}>
+                                                <div style={{
+                                                        display: "block",
+                                                        boxSizing: "border-box", 
+                                                        paddingTop: "62.5%"
+                                                }}/>
+                                                <img alt="thumg image" className="rounded object-cover" src={images[0] || "/static/images/monet512.png"} 
+                                                     style={{
+                                                            position: "absolute",
+                                                            inset: "0px",
+                                                            boxSizing: "border-box",
+                                                            padding: "0px",
+                                                            border: "none",
+                                                            margin: "auto",
+                                                            display: "block",
+                                                            width: "0px",
+                                                            height: "0px",
+                                                            minWidth: "100%",
+                                                            maxWidth: "100%",
+                                                            minHeight: "100%",
+                                                            maxHeight: "100%",
+                                                }}/>
                                             </div>
                                         </div>
                                         <div className="order-first xl:order-none xl:col-span-2 space-y-6">
