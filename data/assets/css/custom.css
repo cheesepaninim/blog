@@ -115,7 +115,6 @@
 }
 
 .list-item:hover {
-    background-color: rgb(250, 255, 200, 0.7);
     border: 2px dashed #ffb24f;
     transform: scale(1.01);
     box-shadow: 0 0.4rem 0.4rem 0 rgb(0, 0, 0, .4);
