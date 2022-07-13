@@ -10,7 +10,7 @@ const siteMetadata = {
     siteLogo: '/static/images/monet192.png',
     image: '/static/images/monet512.png',
     socialBanner: '/static/images/monet192.png',
-    email: 'hpw0310@gmail.com',
+    email: 'cheesepaninim@gmail.com',
     github: 'https://github.com/cheesepaninim',
     // twitter: 'https://twitter.com/Twitter',
     // facebook: 'https://facebook.com',

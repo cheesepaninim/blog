@@ -2,7 +2,7 @@
 name: Cheesepaninim
 avatar: /static/images/monet512.png
 occupation: Web Developer
-email: hpw0310@gmail.com
+email: cheesepaninim@gmail.com
 github: https://github.com/cheesepaninim/
 ---
 
