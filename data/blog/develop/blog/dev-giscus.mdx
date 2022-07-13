@@ -1,25 +1,157 @@
 ---
-title: '서버리스 환경에서 Github Discussions 을 이용한 댓글 시스템 추가하기'
-date: '2022-07-13T12:34:56.000+09:00'
-tags: ['blog', 'tailwind-nextjs-starter-blog', 'giscus']
-draft: true
+title: '서버리스 환경에서 GitHub Discussions 을 이용한 댓글 시스템 Giscus 추가하기'
+date: '2022-07-13T23:34:45.000+09:00'
+tags: ['blog', 'tailwind-nextjs-starter-blog', 'giscus', 'github discussions', 'serverless']
+draft: false
 summary: 'tailwind-nextjs-starter-blog 스타터에서 giscus 사용해서 댓글 달기'
 images: ['/static/images/develop/blog/giscus-i-01.png']
 ---
 
-## tailwind-nextjs-starter-blog 에서 giscus 사용하기
+## Overview
 
-#### Github Discussions
+<TOCInline toc={props.toc} exclude="Overview" />
 
-[Github Discussions](https://docs.github.com/en/discussions)는 Github 에서 오픈 소스 프로젝트에 사용자들끼리 프로젝트 관련한 소통을 할 수 있도록 만들어진 댓글 시스템이다.
+<br />
 
-[giscus](https://giscus.app/ko)
-[utterances](https://utteranc.es/)
+## GitHub 으로 서버 없이 댓글 기능 구현하기
+
+### GitHub Discussions
+
+[GitHub Discussions](https://docs.github.com/en/discussions)는 GitHub 에서 오픈 소스 프로젝트에 사용자들끼리 프로젝트 관련한 소통을 할 수 있도록 만들어진 댓글 시스템이다.
+GitHub 에 사용자들이 올린 프로젝트에 사용자들끼리 의견을 제시하거나 문의, 답변 등을 할 수 있도록 고안된 것이다.
+
+<p align={'center'}>
+    <iframe
+        width="640"
+        height="360"
+        src="https://www.youtube.com/embed/IpBw2SJkFyk"
+        title="GitHub Discussions in 60 seconds"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+    />
+</p>
+
+<br />
+
+### GitHub Issues 를 활용한 댓글 시스템 - utterances
+
+사실 **GitHub Discussions** 가 나오기 이전에 **GitHub Issues** 가 먼저 나왔다.
+말 그대로 깃허브에 올라온 프로젝트에 대해 버그 혹은 의존 모듈의 업데이트 등으로 인한 이슈 등을 제보하거나 해결 방법을 물어보기 위해 사용되어왔다.
+프로젝트의 owner 나 collaborator 들이 답변을 달거나 이슈를 수정해서 올리기도 하고 다른 사용자들끼리 서로 의견을 나누기도 한다.
+
+그런데 **GitHub Issues**를 이용해서 댓글 시스템을 고안한 서비스가 있다. 바로 [utterances](https://utteranc.es/)다.
+**utterances**는 GitHub 을 통해 배포된 프로젝트의 Issues 를 연동해서 해당 프로젝트에 댓글을 달 수 있게 개발되었다.
+
+GitHub 입장에서 의도와 다르게 쓰이는 utterances 에 대해 안좋게 볼 수도 있을 것 같은데, 다행히 오픈소스의 선구자답게 그렇지는 않았던 것 같다.
+그리고 여기서 발전된 것인지는 모르겠으나 2020년에 Issues 에서 더 확장된 Discussions 가 나오게 된 것이다.
+
+<br />
+
+### GitHub Discussions 를 활용한 댓글 시스템 - Giscus
+
+[giscus](https://giscus.app/ko)는 사이트에 들어가보아도 알 수 있듯이 위에서 언급한 utterances 에서 큰 영감을 받았다고한다.
+그래서인지 소개 화면마저도 상당히 비슷한 것 같다.
+나중에 개발되어서인지 기능이나 내용적으로 조금 추가된 부분이 있는 것 같지만, 얼핏 보면 아이콘 외엔 같은 사이트가 아닌가 싶을 만큼 비슷하다.
 
 ![Giscus](/static/images/develop/blog/giscus-i-01.png)
+
+개발자들이 가장 관심을 가질 것 같은 내용으로는 비용이 무료이고 DB 가 따로 필요 없다는 점이다.
+다만, 미리 알아두어야 할 점은 공개저장소여야 한다는 것이다. 당연한 얘기겠지만 private 이라면 방문자들이 discussion 내용을 볼 수 없다고 한다.
+
+<br />
+
+## tailwind-nextjs-starter-blog 에서 giscus 사용하기
+
+이번 포스팅은 현재 내가 사용하고 있는 [tailwind-nextjs-starter-blog](https://github.com/timlrx/tailwind-nextjs-starter-blog) 스타터 템플릿에서
+giscus 를 적용하는 방법에 대해서 소개하려 한다.
+
+블로그 개발기에서 간략하게 소개했지만 쉽고 구성도 알차게 준비되어 있어서 나중에 다시 한번 **tailwind-nextjs-starter-blog** 에 대해 제대로 글을 작성해 볼 예정이다.
+
+<details>
+    <summary>**🧀Cheesepaninim 블로그 개발기**</summary>
+    1. [블로그 개발기(1)](https://cheesepaninim.vercel.app/blog/develop/blog/init-01) 2. [블로그 개발기(2)](https://cheesepaninim.vercel.app/blog/develop/blog/init-02)
+    3. [블로그 개발기(3)](https://cheesepaninim.vercel.app/blog/develop/blog/init-03) 4. [블로그 개발기(4)](https://cheesepaninim.vercel.app/blog/develop/blog/init-04)
+</details>
+
+<br />
+
+어쨌든, 이 템플릿에서는 이미 기본 세팅이 되어있어서 간단히 사용이 가능하다.
+
+<br />
+
+### 저장소(repository) 설정하기
+
+우선 저장소에 대한 몇 가지 설정을 해야한다.
+
+1. **공개저장소(public)**
+
+    이미 public repository라면 상관 없지만 private 이라면 바꾸어야 한다.
+    github 사이트에서 해당 repository 로 들어가서 **Settings** > **General** 화면에서 맨 아래 **Danger Zone** 이 있다.
+
+    ![set GitHub repository public](/static/images/develop/blog/giscus-i-repo-01.png)
+
+    여기에서 Change visibility 를 누르면 make public 으로 공개 저장소로 전환이 가능하다.
+
+2. **giscus App 설치**
+
+    App 설치라고는 했지만 프로젝트에 무언가를 직접 설치하고 세팅을하는 그런 번거로운 작업은 아니다.
+
+    ![install(configure) giscus app](/static/images/develop/blog/giscus-i-repo-02.png)
+
+    https://github.com/apps/giscus 로 접속해서 **Configure** 만 누르고 어떤 Repository 에 접근 가능하게 할지만 선택, 저장하면 된다.
+    나는 **Only select repositories** 를 선택해서 블로그 repository 를 선택했다.
+
+3. **Discussions 기능 활성화**
+
+    공개 저장소 변경과 마찬가지로 GitHub 에서 블로그 repository 로 접근 후 **Settings** > **General** 화면에서 중간쯤 **Features** 가 있는데
+    **Discussions** 체크박스에 체크만 해주면 된다.
+
+    ![activate GitHub Discussions](/static/images/develop/blog/giscus-i-repo-03.png)
+
+여기까지 진행하면 저장소 설정은 끝이다.
+
+### Giscus 활성화
+
+저장소 세팅이 끝났다면 여기서는 더 간단하다.
+[giscus 홈페이지](https://giscus.app/ko)로 들어가서 **설정** 을 원하는대로 해주면 된다.
+
+저장소 입력란에는 아래 이미지와 같이 _**사용자이름/저장소이름**_ 을 적으면 로딩바가 잠시 돌다가 통과 문구가 나온다.
+혹시 통과되지 않았다면 [저장소 세팅](https://cheesepaninim.vercel.app/blog/develop/blog/dev-giscus#저장소repository-설정하기)을 다시 확인해보아야 한다.
+
 ![Giscus check repository](/static/images/develop/blog/giscus-i-02.png)
+
+나는 Category 는 **General** 로, 테마는 **light** 로 했다.
+설정 값 들을 선택하고 나면 아래에 giscus 활성화의 `script`에 값 들이 들어가 있는 것을 확인할 수 있다.
+
 ![enable Giscus with giscus src](/static/images/develop/blog/giscus-i-03.png)
-![set Github repository public](/static/images/develop/blog/giscus-i-repo-01.png)
-![install(configure) giscus app](/static/images/develop/blog/giscus-i-repo-02.png)
-![activate Github Discussions](/static/images/develop/blog/giscus-i-repo-03.png)
-![Comments with Github Discussions](/static/images/develop/blog/giscus.png)
+
+### tailwind-nextjs-starter-blog 의 Giscus
+
+앞서 tailwind-nextjs-starter-blog 에서는 이미 준비가 다 되어있다고 얘기했는데
+템플릿에서 따로 손을 대지 않았다면 두 가지만 하면 된다.
+
+1. `siteMetadata.js` 파일을 열어서 comment 의 provider 를 'giscus' 로 한다.
+
+    ```javascript
+    const siteMetadata = {
+        ...
+        comment: {
+            provider: 'giscus',
+            ...
+        },
+    }
+    ```
+
+2. `siteMetaData.js` 에서 좀 전에 입력한 provider 아래에 `giscusConfig`를 보면 env 에서 repo 정보 등을 가져오고 있다.
+   `.env` 파일을 만들어서 [Giscus 활성화](https://cheesepaninim.vercel.app/blog/develop/blog/dev-giscus#Giscus 활성화) 의 script 에서 받은 값 들을 입력하면 된다.
+   여기서도 템플릿이 미리 준비해둔 `.env.example` 파일을 복사해서 `.env` 로 만들고 값을 넣어주기만 하면 된다.
+
+![Comments with GitHub Discussions](/static/images/develop/blog/giscus.png)
+
+그리고 배포하면 아래와 같이 💎Giscus 를 통해 댓글을 입력하고 볼 수 있다.🎉🎊✨
+
+<br />
+
+📌 참고로 .env 파일을 통해 값을 추가했지만 vercel 혹은 netlify 와 같은 사이트를 이용해서 배포를 한다면
+해당 사이트에서 배포 설정에 environment values 를 추가해주어야 한다.
