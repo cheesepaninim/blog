@@ -131,6 +131,10 @@
     cursor: pointer;
 }
 
+.img-box {
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.7)
+}
+
 .gate {
     border-radius: 10px;
     background-color: #f9f9f9;
