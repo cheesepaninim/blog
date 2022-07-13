@@ -109,7 +109,7 @@
 .list-item {
     padding: 1rem;
     margin: .75rem auto;
-    border: 2px dashed #333;
+    border: 1px dashed #575757;
     border-radius: .25rem;
     box-shadow: 0 0.25rem 0.25rem 0 rgb(0, 0, 0, .3);
 }
@@ -118,7 +118,7 @@
     background-color: rgb(250, 255, 200, 0.7);
     border: 2px dashed #ffb24f;
     transform: scale(1.01);
-    box-shadow: 0 0.25rem 0.25rem 0 rgb(0, 0, 0, .3);
+    box-shadow: 0 0.4rem 0.4rem 0 rgb(0, 0, 0, .4);
 }
 
 .list-item:hover > article {
