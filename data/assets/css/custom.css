@@ -107,19 +107,17 @@
 }
 
 .list-item {
-    padding: 1rem;   
+    padding: 1rem;
+    margin: .75rem auto;
+    border: 1px dashed #575757;
+    border-radius: .25rem;
+    box-shadow: 0 0.25rem 0.25rem 0 rgb(0, 0, 0, .3);
 }
-
 
 .list-item:hover {
-    padding-top: calc(1rem - 2px);
-    padding-bottom: calc(1rem - 2px);
-    background-color: rgb(250, 255, 200, 0.7);
-}
-
-.list-item.py-4:hover {
-    padding-top: calc(3rem - 2px);
-    padding-bottom: calc(3rem - 2px);
+    border: 2px dashed #ffb24f;
+    transform: scale(1.01);
+    box-shadow: 0 0.4rem 0.4rem 0 rgb(0, 0, 0, .4);
 }
 
 .list-item:hover > article {
@@ -128,13 +126,12 @@
     padding: 2px;
 }
 
-.list-item.py-4:hover {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-}
-
 .list-item.py-4:hover > article {
     cursor: pointer;
+}
+
+.img-box {
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.7)
 }
 
 .gate {

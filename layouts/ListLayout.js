@@ -68,7 +68,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                                 >
                                     <div className="space-y-2 grid xl:grid-rows-2 xl:grid-cols-4 xl:grid-flow-col xl:space-y-0 gap-2 xl:gap-4">
                                         <div className="xl:row-span-2">
-                                            <div style={{
+                                            <div className="img-box" style={{
                                                         display: "block",
                                                         overflow: "hidden",
                                                         position: "relative",
