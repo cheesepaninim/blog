@@ -57,76 +57,40 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                         </svg>
                     </div>
                 </div>
-                <ul>
+                <div className="grid grid-cols-1 gap-8 pt-10 md:grid-cols-2 xl:grid-cols-3">
                     {!filteredBlogPosts.length && 'No posts found.'}
                     {displayPosts.map((frontMatter) => {
                         const { slug, date, title, summary, tags, images } = frontMatter
                         return (
-                            <li key={slug} className="list-item py-4">
-                                <article
-                                    onClick={(_) => linkTo(`/blog/${slug}`)}
-                                >
-                                    <div className="space-y-2 grid xl:grid-rows-2 xl:grid-cols-4 xl:grid-flow-col xl:space-y-0 gap-2 xl:gap-4">
-                                        <div className="xl:row-span-2">
-                                            <div className="img-box" style={{
-                                                        display: "block",
-                                                        overflow: "hidden",
-                                                        position: "relative",
-                                                        boxSizing: "border-box", 
-                                                        margin: "0px"
-                                            }}>
-                                                <div style={{
-                                                        display: "block",
-                                                        boxSizing: "border-box", 
-                                                        paddingTop: "62.5%"
-                                                }}/>
-                                                <img alt="thumg image" className="rounded object-cover" src={images[0] || "/static/images/monet512.png"} 
-                                                     style={{
-                                                            position: "absolute",
-                                                            inset: "0px",
-                                                            boxSizing: "border-box",
-                                                            padding: "0px",
-                                                            border: "none",
-                                                            margin: "auto",
-                                                            display: "block",
-                                                            width: "0px",
-                                                            height: "0px",
-                                                            minWidth: "100%",
-                                                            maxWidth: "100%",
-                                                            minHeight: "100%",
-                                                            maxHeight: "100%",
-                                                }}/>
-                                            </div>
-                                        </div>
-                                        <div className="order-first xl:order-none xl:col-span-3 space-y-6">
-                                            <div>
-                                                <dl>
-                                                    <dt className="sr-only">Published on</dt>
-                                                    <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                                                        <time dateTime={date}>{formatDate(date)}</time>
-                                                    </dd>
-                                                </dl>
-                                                <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                                                    <a className="text-gray-900 dark:text-gray-100" href="/recettes/gateau-au-yaourt">{title}</a>
-                                                </h2>
-                                                <div className="flex flex-wrap">
-                                                    {tags.map((tag) => (
-                                                        <Tag key={tag} text={tag} />
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="xl:row-span-1 xl:col-span-3">
-                                            <div className="prose text-gray-500 max-w-none dark:text-gray-400">
-                                                {summary}
-                                            </div>
-                                        </div>
+                            <div className="list-item group bg-day relative h-full transform rounded-lg transition duration-500 hover:scale-105"
+                                 onClick={_ => linkTo(`/blog/${slug}`)}
+                            >
+                                <div className="animate-tilt absolute -inset-0.5 rounded-lg bg-gradient-to-r from-green-600 to-amber-500 opacity-25 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
+                                <article className="c-card relative block h-full overflow-hidden rounded-lg bg-cardBg">
+                                    <div className="group relative max-h-4 overflow-hidden rounded-lg pb-60">
+                                        <span>
+                                            <img alt="thumg image" 
+                                                 src={images[0] || "/static/images/monet512.png"}
+                                                 className="absolute inset-0 h-full w-full object-cover" />
+                                        </span>
+                                    </div>
+                                    <div className="h-full py-4 px-2">
+                                        <span className="inline-flex w-full items-center justify-between">
+                                            <span className="inline-block rounded border border-gray-700 py-1 px-2 text-xs font-medium">
+                                                {tags.map((tag) => (
+                                                    <Tag key={tag} text={tag} />
+                                                ))}
+                                            </span>
+                                            <time dateTime={date}>{formatDate(date)}</time>
+                                        </span>
+                                        <h2 className="mt-2 mb-2 font-bold md:text-xl">{title}</h2>
+                                        <p className="h-auto text-sm tracking-wider text-gray-300">{summary}</p>
                                     </div>
                                 </article>
-                            </li>
+                            </div>
                         )
                     })}
-                </ul>
+                </div>
             </div>
             {pagination && pagination.totalPages > 1 && !searchValue && (
                 <Pagination
