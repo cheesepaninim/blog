@@ -118,7 +118,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                                             {tags.map((tag) => (
                                                 <Tag key={tag} text={tag} />
                                             ))}
-                                            <time datetime={date} className="text-sm font-semibold">{formatDate(date)}</time>
+                                            <time dateTime={date} className="text-sm font-semibold">{formatDate(date)}</time>
                                         </span>
                                         <h2 className="mt-2 mb-2 md:text-xl font-bold">{title}</h2>
                                         <p className="text-sm text-gray-600 dark:text-gray-300 tracking-wider">{summary}</p>
