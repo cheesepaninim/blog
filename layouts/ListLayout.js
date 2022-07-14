@@ -57,35 +57,71 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                         </svg>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 gap-8 pt-10 md:grid-cols-2 xl:grid-cols-3">
+                <div className="grid gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                     {!filteredBlogPosts.length && 'No posts found.'}
                     {displayPosts.map((frontMatter) => {
                         const { slug, date, title, summary, tags, images } = frontMatter
                         return (
-                            <div className="list-item group bg-day relative h-full transform rounded-lg transition duration-500 hover:scale-105"
-                                 onClick={_ => linkTo(`/blog/${slug}`)}
-                                 key={slug}
+                            <div className="group w-full bg-day dark:bg-night bg-opacity-50 dark:bg-opacity-50"
+                                 key={slug} onClick={_ => linkTo(`/blog/${slug}`)}
                             >
-                                <div className="animate-tilt absolute -inset-0.5 rounded-lg"></div>
-                                <article className="c-card relative block h-full overflow-hidden rounded-lg bg-cardBg">
-                                    <div className="group relative max-h-4 overflow-hidden rounded-lg pb-60">
-                                        <span>
+                                <article className="c-card block bg-transparent rounded-lg overflow-hidden transform transition duration-500 group-hover:scale-105">
+                                    <div className="relative pb-60 max-h-4 rounded-lg overflow-hidden">
+                                        <span style={{
+                                            boxSizing:'border-box',
+                                            display:'block',
+                                            overflow:'hidden',
+                                            width:'initial',
+                                            height:'initial',
+                                            background:'none',
+                                            opacity:1,
+                                            border:0,
+                                            margin:0,
+                                            padding:0,
+                                            position:'absolute',
+                                            top:0,
+                                            left:0,
+                                            bottom:0,
+                                            right:0
+                                        }}>
+
                                             <img alt="thumg image" 
-                                                 src={images[0] || "/static/images/monet512.png"}
-                                                 className="absolute inset-0 h-full w-full object-cover" />
+                                                 src={images[0] || "/static/images/monet512.png"} 
+                                                 decoding="async" 
+                                                 data-nimg="fill" 
+                                                 className="absolute inset-0 h-full w-full opacity-80 dark:opacity-70 object-cover transform transition duration-700 group-hover:scale-110 group-hover:opacity-100" 
+                                                 style={{
+                                                     position:'absolute',
+                                                     top:0,
+                                                     left:0,
+                                                     bottom:0,
+                                                     right:0,
+                                                     boxSizing:'border-box',
+                                                     padding:0,
+                                                     border:'none',
+                                                     margin:'auto',
+                                                     display:'block',
+                                                     width:0,
+                                                     height:0,
+                                                     minWidth:'100%',
+                                                     maxWidth:'100%',
+                                                     minHeight:'100%',
+                                                     maxHeight:'100%'
+                                                 }}
+                                                 sizes="50vw" 
+                                             />
+
                                         </span>
                                     </div>
-                                    <div className="h-full py-4 px-2">
-                                        <span className="inline-flex w-full items-center justify-between">
-                                            <span className="inline-block rounded border border-gray-700 py-1 px-2 text-xs font-medium">
-                                                {tags.map((tag) => (
-                                                    <Tag key={tag} text={tag} />
-                                                ))}
-                                            </span>
-                                            <time dateTime={date}>{formatDate(date)}</time>
+                                    <div className="py-4">
+                                        <span className="w-full inline-flex justify-between items-center">
+                                            {tags.map((tag) => (
+                                                <Tag key={tag} text={tag} />
+                                            ))}
+                                            <time datetime={date} className="text-sm font-semibold">{formatDate(date)}</time>
                                         </span>
-                                        <h2 className="mt-2 mb-2 font-bold md:text-xl">{title}</h2>
-                                        <p className="h-auto text-sm tracking-wider text-gray-300">{summary}</p>
+                                        <h2 className="mt-2 mb-2 md:text-xl font-bold">{title}</h2>
+                                        <p className="text-sm text-gray-600 dark:text-gray-300 tracking-wider">{summary}</p>
                                     </div>
                                 </article>
                             </div>
