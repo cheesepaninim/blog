@@ -19,7 +19,7 @@ const Tag = ({ text }) => {
         <Link href={`/tags/${kebabCase(text)}`}>
             <a
                 onClick={linkTo}
-                className="mr-3 text-sm font-semibold uppercase text-indigo-600 hover:text-indigo-700 dark:hover:text-primary-400"
+                className="mr-3 text-sm font-semibold uppercase text-amber-600 hover:text-orange-600 dark:hover:text-primary-400"
             >
                 {text.split(' ').join('-')}
             </a>
