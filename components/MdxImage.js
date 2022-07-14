@@ -1,6 +1,14 @@
 import NextImage from 'next/image'
 
 // eslint-disable-next-line jsx-a11y/alt-text
-const Image = ({ ...rest }) => <div className="img-box"><NextImage {...rest} /></div>
+const Image = ({ ...rest }) => (
+  <>
+    <p align="center" class="text-slate-200"> • </p>
+    <div className="img-box">
+      <NextImage {...rest} />
+    </div>
+    <p align="center" class="text-slate-200"> • </p>
+  </>
+)
 
 export default Image
