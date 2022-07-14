@@ -108,16 +108,31 @@
 
 .list-item {
     padding: 1rem;
-    margin: .75rem auto;
-    border: 1px dashed #575757;
-    border-radius: .25rem;
-    box-shadow: 0 0.5rem 0.5rem 0 rgb(255, 200, 200, .4);
+    margin: 0.75rem auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 0.5rem 0 rgb(0, 0, 0, 0.7);
     display: block;
+    opacity: 0.8;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.list-item time {
+    color: #002e95;
+}
+
+.list-item .item-thumb {
+    border: 1px solid #333;
+    box-shadow: 0 0.2rem 0.2rem 0 #333;
+}
+
+.list-item .item-title {
+    color: #171717;
 }
 
 .list-item:hover {
-    border: 2px dashed #ffb24f;
-    box-shadow: 0 0.5rem 0.5rem 0 rgb(255, 200, 200, .7);
+    box-shadow: 0 0.5rem 0.5rem 0 rgb(255, 160, 160, 1);
+    opacity: 1;
 }
 
 .list-item:hover > article {
@@ -131,10 +146,11 @@
 }
 
 .img-box {
-    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.7)
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.7);
 }
 
 .gate {
     border-radius: 10px;
     background-color: #f9f9f9;
+    border: 2px dotted black;
 }

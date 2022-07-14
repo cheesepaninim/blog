@@ -57,73 +57,82 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                         </svg>
                     </div>
                 </div>
-                <div className="grid gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
                     {!filteredBlogPosts.length && 'No posts found.'}
                     {displayPosts.map((frontMatter) => {
                         const { slug, date, title, summary, tags, images } = frontMatter
                         return (
-                            <div className="list-item group w-full bg-day dark:bg-night bg-opacity-70 dark:bg-opacity-70"
-                                 key={slug} onClick={_ => linkTo(`/blog/${slug}`)}
+                            <div
+                                className="bg-day dark:bg-night group list-item w-full bg-opacity-70 dark:bg-opacity-70"
+                                key={slug}
+                                onClick={(_) => linkTo(`/blog/${slug}`)}
                             >
-                                <article className="c-card block rounded-lg overflow-hidden transform transition duration-500 group-hover:scale-105">
-                                    <div className="relative pb-60 max-h-4 rounded-lg overflow-hidden">
-                                        <span style={{
-                                            boxSizing:'border-box',
-                                            display:'block',
-                                            overflow:'hidden',
-                                            width:'initial',
-                                            height:'initial',
-                                            background:'none',
-                                            opacity:1,
-                                            border:0,
-                                            margin:0,
-                                            padding:0,
-                                            position:'absolute',
-                                            top:0,
-                                            left:0,
-                                            bottom:0,
-                                            right:0
-                                        }}>
-
-                                            <img alt="thumg image" 
-                                                 src={images[0] || "/static/images/monet512.png"} 
-                                                 decoding="async" 
-                                                 data-nimg="fill" 
-                                                 className="absolute inset-0 h-full w-full opacity-90 dark:opacity-20 object-cover transform transition duration-700 group-hover:scale-110 group-hover:opacity-100" 
-                                                 style={{
-                                                     position:'absolute',
-                                                     top:0,
-                                                     left:0,
-                                                     bottom:0,
-                                                     right:0,
-                                                     boxSizing:'border-box',
-                                                     padding:0,
-                                                     border:'none',
-                                                     margin:'auto',
-                                                     display:'block',
-                                                     width:0,
-                                                     height:0,
-                                                     minWidth:'100%',
-                                                     maxWidth:'100%',
-                                                     minHeight:'100%',
-                                                     maxHeight:'100%'
-                                                 }}
-                                                 sizes="50vw" 
-                                             />
-
+                                <article className="c-card block transform overflow-hidden rounded-lg transition duration-500 group-hover:scale-105">
+                                    <div className="item-thumb relative max-h-4 overflow-hidden rounded-lg pb-60">
+                                        <span
+                                            style={{
+                                                boxSizing: 'border-box',
+                                                display: 'block',
+                                                overflow: 'hidden',
+                                                width: 'initial',
+                                                height: 'initial',
+                                                background: 'none',
+                                                opacity: 1,
+                                                border: 0,
+                                                margin: 0,
+                                                padding: 0,
+                                                position: 'absolute',
+                                                top: 0,
+                                                left: 0,
+                                                bottom: 0,
+                                                right: 0,
+                                            }}
+                                        >
+                                            <img
+                                                alt="thumb image"
+                                                src={images[0] || '/static/images/monet512.png'}
+                                                decoding="async"
+                                                data-nimg="fill"
+                                                className="absolute inset-0 h-full w-full transform object-cover opacity-90 transition duration-700 group-hover:scale-110 group-hover:opacity-100 dark:opacity-20"
+                                                style={{
+                                                    position: 'absolute',
+                                                    top: 0,
+                                                    left: 0,
+                                                    bottom: 0,
+                                                    right: 0,
+                                                    boxSizing: 'border-box',
+                                                    padding: 0,
+                                                    border: 'none',
+                                                    margin: 'auto',
+                                                    display: 'block',
+                                                    width: 0,
+                                                    height: 0,
+                                                    minWidth: '100%',
+                                                    maxWidth: '100%',
+                                                    minHeight: '100%',
+                                                    maxHeight: '100%',
+                                                }}
+                                                sizes="50vw"
+                                            />
                                         </span>
                                     </div>
                                     <div className="py-4">
-                                        <span className="w-full inline-flex justify-between">
-                                            <time dateTime={date} className="text-sm font-semibold">{formatDate(date)}</time>
+                                        <span className="inline-flex w-full justify-between">
+                                            <time dateTime={date} className="text-sm font-semibold">
+                                                {formatDate(date)}
+                                            </time>
                                         </span>
+                                        <h2 className="item-title mt-2 mb-2 font-bold md:text-xl">
+                                            {title}
+                                        </h2>
                                         <p>
                                             {tags.map((tag) => (
                                                 <Tag key={tag} text={tag} />
                                             ))}
                                         </p>
-                                        <h2 className="mt-2 mb-2 md:text-xl font-bold">{title}</h2>
-                                        <p className="text-sm text-gray-600 dark:text-gray-300 tracking-wider">{summary}</p>
+                                        <p className="text-sm tracking-wider text-gray-600 dark:text-gray-300">
+                                            {summary}
+                                        </p>
                                     </div>
                                 </article>
                             </div>
