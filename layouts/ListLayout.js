@@ -62,7 +62,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                     {displayPosts.map((frontMatter) => {
                         const { slug, date, title, summary, tags, images } = frontMatter
                         return (
-                            <div className="list-item group w-full bg-day dark:bg-night bg-opacity-50 dark:bg-opacity-50"
+                            <div className="list-item group w-full bg-day dark:bg-night bg-opacity-70 dark:bg-opacity-70"
                                  key={slug} onClick={_ => linkTo(`/blog/${slug}`)}
                             >
                                 <article className="c-card block bg-transparent rounded-lg overflow-hidden transform transition duration-500 group-hover:scale-105">
@@ -89,7 +89,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                                                  src={images[0] || "/static/images/monet512.png"} 
                                                  decoding="async" 
                                                  data-nimg="fill" 
-                                                 className="absolute inset-0 h-full w-full opacity-80 dark:opacity-70 object-cover transform transition duration-700 group-hover:scale-110 group-hover:opacity-100" 
+                                                 className="absolute inset-0 h-full w-full opacity-90 dark:opacity-20 object-cover transform transition duration-700 group-hover:scale-110 group-hover:opacity-100" 
                                                  style={{
                                                      position:'absolute',
                                                      top:0,
