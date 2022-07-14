@@ -8,7 +8,7 @@ import Pre from './Pre'
 import { BlogNewsletterForm } from './NewsletterForm'
 
 export const MDXComponents = {
-  Image,
+  Image: () => <div className="img-box"><Image/></div>,
   TOCInline,
   a: CustomLink,
   pre: Pre,
