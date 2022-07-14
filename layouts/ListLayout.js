@@ -62,7 +62,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                     {displayPosts.map((frontMatter) => {
                         const { slug, date, title, summary, tags, images } = frontMatter
                         return (
-                            <div className="group w-full bg-day dark:bg-night bg-opacity-50 dark:bg-opacity-50"
+                            <div className="list-item group w-full bg-day dark:bg-night bg-opacity-50 dark:bg-opacity-50"
                                  key={slug} onClick={_ => linkTo(`/blog/${slug}`)}
                             >
                                 <article className="c-card block bg-transparent rounded-lg overflow-hidden transform transition duration-500 group-hover:scale-105">
@@ -114,12 +114,14 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                                         </span>
                                     </div>
                                     <div className="py-4">
-                                        <span className="w-full inline-flex justify-between items-center">
+                                        <span className="w-full inline-flex justify-between">
+                                            <time dateTime={date} className="text-sm font-semibold">{formatDate(date)}</time>
+                                        </span>
+                                        <p>
                                             {tags.map((tag) => (
                                                 <Tag key={tag} text={tag} />
                                             ))}
-                                            <time dateTime={date} className="text-sm font-semibold">{formatDate(date)}</time>
-                                        </span>
+                                        </p>
                                         <h2 className="mt-2 mb-2 md:text-xl font-bold">{title}</h2>
                                         <p className="text-sm text-gray-600 dark:text-gray-300 tracking-wider">{summary}</p>
                                     </div>
