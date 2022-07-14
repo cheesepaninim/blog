@@ -112,6 +112,7 @@
     border: 1px dashed #575757;
     border-radius: .25rem;
     box-shadow: 0 0.5rem 0.5rem 0 rgb(255, 200, 200, .4);
+    display: block;
 }
 
 .list-item:hover {
