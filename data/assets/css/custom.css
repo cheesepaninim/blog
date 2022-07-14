@@ -111,13 +111,12 @@
     margin: .75rem auto;
     border: 1px dashed #575757;
     border-radius: .25rem;
-    box-shadow: 0 0.25rem 0.25rem 0 rgb(0, 0, 0, .3);
+    box-shadow: 0 0.5rem 0.5rem 0 rgb(255, 200, 200, .4);
 }
 
 .list-item:hover {
     border: 2px dashed #ffb24f;
-    transform: scale(1.01);
-    box-shadow: 0 0.4rem 0.4rem 0 rgb(0, 0, 0, .4);
+    box-shadow: 0 0.5rem 0.5rem 0 rgb(255, 200, 200, .7);
 }
 
 .list-item:hover > article {
