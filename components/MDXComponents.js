@@ -1,14 +1,14 @@
 /* eslint-disable react/display-name */
 import { useMemo } from 'react'
 import { getMDXComponent } from 'mdx-bundler/client'
-import Image from './Image'
+import MdxImage from './MdxImage'
 import CustomLink from './Link'
 import TOCInline from './TOCInline'
 import Pre from './Pre'
 import { BlogNewsletterForm } from './NewsletterForm'
 
 export const MDXComponents = {
-  Image: () => <div className="img-box"><Image/></div>,
+  MdxImage,
   TOCInline,
   a: CustomLink,
   pre: Pre,
