@@ -65,7 +65,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                             <div className="list-item group w-full bg-day dark:bg-night bg-opacity-70 dark:bg-opacity-70"
                                  key={slug} onClick={_ => linkTo(`/blog/${slug}`)}
                             >
-                                <article className="c-card block bg-transparent rounded-lg overflow-hidden transform transition duration-500 group-hover:scale-105">
+                                <article className="c-card block rounded-lg overflow-hidden transform transition duration-500 group-hover:scale-105">
                                     <div className="relative pb-60 max-h-4 rounded-lg overflow-hidden">
                                         <span style={{
                                             boxSizing:'border-box',
