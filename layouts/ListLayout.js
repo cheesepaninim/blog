@@ -66,7 +66,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                                  onClick={_ => linkTo(`/blog/${slug}`)}
                                  key={slug}
                             >
-                                <div className="animate-tilt absolute -inset-0.5 rounded-lg bg-gradient-to-r from-green-600 to-amber-500 opacity-25 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
+                                <div className="animate-tilt absolute -inset-0.5 rounded-lg"></div>
                                 <article className="c-card relative block h-full overflow-hidden rounded-lg bg-cardBg">
                                     <div className="group relative max-h-4 overflow-hidden rounded-lg pb-60">
                                         <span>
