@@ -39,8 +39,8 @@ class MyDocument extends Document {
                 </Head>
                 <body className="bg-white text-black antialiased dark:bg-gray-900 dark:text-white"
                       style={{
-                         background: 'url(/static/images/Particles-0.1s-1281px.svg)'
-                      }}>
+                         background: 'url(/static/images/Particles-0.1s-953px.svg)'
+                      }}
                 >
                     <div id={'portal'} />
                     <Main />
