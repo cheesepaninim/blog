@@ -1,0 +1,63 @@
+---
+title: 'Javascript console 함수의 종류와 사용법'
+date: '2022-07-18T16:00:00.000+09:00'
+tags: ['js', 'console']
+draft: true
+summary: '가장 단순하고 간단한 디버깅 방법. console 에는 어떤 기능들이 있을까.'
+images: ['/static/images/develop/js/console-list.png']
+---
+
+## console
+
+기본적인 javascript 의 디버깅에서 어떤 값들을 눈에 보면서 확인하기 위해 **console**을 많이 사용할 것이다. 적어도 나는 사용 빈도가 굉장히 높다.
+
+ajax 통신을 볼 때 개발자 도구의 Network 탭을 활요하거나
+가끔 복잡한 코드에서 유지보수 할 때 각을 잡고 **debugger**를 이용하거나 개발자도구의 다른 기능들을 사용하기도 하지만
+**console** 을 가장 자주 활용하는 것 같다.[^1]
+
+[^1]: 물론 상황에 따라 다르긴하다.
+
+<br />
+
+## console method 목록
+
+Javascript 에서 console 의 method 목록을 확인하는 방법은 아주 간단하다.
+`<script>` 에서 아래와 같이 console 자체를 console.log 로 출력해도 되고 개발자 도구를 열어서 console 을 입력해봐도 된다.
+
+```javascript
+console.log(console)
+```
+
+![console 함수 목록](/static/images/develop/js/console-list.png)
+
+<br />
+
+다양한 method 가 존재하긴 하지만 나도 일부밖에 사용하지 않고 전부 알 필요까진 없는 것 같아서 내가 쓰는 것들 위주로 소개하려고 한다.
+
+clear: ƒ clear()
+count: ƒ count()
+countReset: ƒ countReset()
+
+dir: ƒ dir()
+dirxml: ƒ dirxml()
+
+group: ƒ group()
+groupCollapsed: ƒ groupCollapsed()
+groupEnd: ƒ groupEnd()
+
+table: ƒ table()
+
+time: ƒ time()
+timeEnd: ƒ timeEnd()
+timeLog: ƒ timeLog()
+
+trace: (...args) => {…}
+
+아래 method 를 활용해서 기본적으로 직관적 스타일이 적용된 로그를 볼 수도 있다. console sidebar 도 확인
+
+console.log<br/>
+
+console.debug<br/>
+console.info<br/>
+console.warn<br/>
+console.error<br/>
