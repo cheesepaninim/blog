@@ -41,7 +41,8 @@ class MyDocument extends Document {
                     className="bg-white text-black antialiased dark:bg-gray-900 dark:text-white"
                     style={{
                         background: 'url(/static/images/Particles-0.1s-953px.svg)',
-                        backgroundColor: '#f7f6f3',
+                        // backgroundColor: '#f7f6f3',
+                        backgroundColor: '#fff',
                     }}
                 >
                     <div id={'portal'} />
