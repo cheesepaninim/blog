@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Loading from '@/components/Loading'
 
-const MAX_DISPLAY = 3
+const MAX_DISPLAY = 5
 
 export async function getStaticProps() {
     const posts = await getAllFilesFrontMatter('blog')
