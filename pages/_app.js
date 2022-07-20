@@ -1,6 +1,6 @@
 import '@/data/assets/css/tailwind.css'
-// import '@/data/assets/css/prism.css'
-import '@/data/assets/css/prism-material-dark.css'
+import '@/data/assets/css/prism.css'
+// import '@/data/assets/css/prism-material-dark.css'
 import 'katex/dist/katex.css'
 
 import '@fontsource/inter/variable-full.css'
