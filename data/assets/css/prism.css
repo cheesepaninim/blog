@@ -141,6 +141,7 @@
 
 
 /* prism-material-dark.css */
+/*
 code[class*='language-'],
 pre[class*='language-'] {
     text-align: left;
@@ -346,3 +347,4 @@ pre[class*='language-'] {
 .token.variable {
     color: #ff6666;
 }
+*/
