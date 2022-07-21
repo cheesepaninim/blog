@@ -90,7 +90,10 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                                         >
                                             <img
                                                 alt="thumb image"
-                                                src={images[0] || '/static/images/monet512.png'}
+                                                src={
+                                                    (images && images[0]) ||
+                                                    '/static/images/monet512.png'
+                                                }
                                                 decoding="async"
                                                 data-nimg="fill"
                                                 className="absolute inset-0 h-full w-full transform object-cover opacity-90 transition duration-700 group-hover:scale-110 group-hover:opacity-100 dark:opacity-20"
