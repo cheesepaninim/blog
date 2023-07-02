@@ -1,0 +1,205 @@
+---
+title: 'Jacvascript console 함수의 종류와 사용법'
+date: '2022-07-21T00:47:31.000+09:00'
+tags: ['js', 'console', 'console methods']
+draft: false
+summary: '가장 단순하고 간단한 디버깅 방법. console 에는 어떤 기능들이 있을까.'
+images: ['/static/images/develop/js/console-list.png']
+---
+
+<TOCInline toc={props.toc} exclude="Overview" />
+
+## console
+
+기본적인 javascript 의 디버깅에서 어떤 값들을 눈에 보면서 확인하기 위해 **console**을 많이 사용할 것이다. 적어도 나는 사용 빈도가 굉장히 높다.
+
+ajax 통신을 볼 때 개발자 도구의 Network 탭을 활요하거나
+가끔 복잡한 코드에서 유지보수 할 때 각을 잡고 **debugger**를 이용하거나 개발자도구의 다른 기능들을 사용하기도 하지만
+**console** 을 가장 자주 활용하는 것 같다.[^1]
+
+[^1]: 물론 상황에 따라 다르긴하다.
+
+<br />
+
+## console method 목록
+
+Javascript 에서 console 의 method 목록을 확인하는 방법은 아주 간단하다.
+`<script>` 에서 아래와 같이 console 자체를 console.log 로 출력해도 되고 개발자 도구를 열어서 console 을 입력해봐도 된다.
+
+```javascript
+console.log(console)
+```
+
+![console 함수 목록](/static/images/develop/js/console-list.png)
+
+다양한 method 가 존재하긴 하지만 나도 일부밖에 사용하지 않고 전부 알 필요까진 없는 것 같아서 내가 쓰는 것들 위주로 소개하려고 한다.
+
+<br />
+
+### 콘솔 창 초기화 - clear
+
+단어 그대로 콘솔 창에 입력된 모든 것들을 초기화 시켜준다. 특정 시점부터의 디버깅이 필요한 경우 해당 시점의 맨 앞에서 실행시켜주면 콘솔 확인이 편리하다.
+
+```javascript
+console.log(document.body)
+
+console.clear()
+
+const data = { a: 1, b: 5 }
+console.log(data)
+```
+
+<br />
+
+### 로그 레벨 - debug / info / warn / error
+
+레벨로 구분된 로그 정도로 생각하면 될 것 같다. 기본적으로 직관적 스타일이 적용된 로그를 볼 수 있다.
+console sidebar 에서 각각의 레벨 별로 따로 확인도 가능하다.
+
+```javascript
+console.debug('debug test')
+console.info('info test')
+console.warn('warn test')
+console.error('error test')
+```
+
+![chrome console sidebar](/static/images/develop/js/console-sidebar.png)
+
+<br />
+
+### 카운트 체크 - count / countReset
+
+어떤 이벤트 등의 실행 횟수를 체크하기 위해서 굳이 따로 변수를 만들어 공유하지 않고 `console.count` 를 사용해서 간단하게 체크할 수 있다.
+param 으로는 라벨을 입력받을 수 있는데 받지 않더라도 **'default'** 로 카운트가 체크된다.
+
+라벨을 입력할 경우 해당 라벨에 대한 카운트가 올라가며, 입력하지 않을 때에도 동일하게 default 에 대한 카운트가 올라간다.
+초기화는 `console.countReset(?label)`으로 가능하다.
+
+_※ 참고로 라벨을 'default' 라고 입력하면 입력하지 않은 경우와 동일하게 취급된다._
+
+```javascript
+console.count('myLabel') // myLabel: 1
+console.count() // default: 1
+console.count('myLabel') // myLabel: 2
+console.count('myLabel2') // myLabel2: 1
+console.count('default') // default: 2
+console.countReset('myLabel')
+console.countReset('myLabel2')
+console.countReset()
+```
+
+<br />
+
+### 시간 체크 - time / timeLog / timeEnd
+
+시간 체크가 정확할지 모르겠어서 거의 사용하지는 않지만 가끔 참고용 정도로 사용할 때는 있다.
+`count` 와 마찬가지로 라벨을 받을 수 있고 받지 않으면 default 로 표시된다.
+
+시간 체크를 시작하는 시점에 `console.time()` 을 사용하고 중간중간 시간을 체크하고 싶은 시점에서는 `console.timeLog()`를 사용한다.
+`console.timeEnd()`를 사용하면 타이머가 종료되며 이 때에도 역시 시간을 표시해준다.
+
+```javascript
+console.time('myTimer')
+console.timeLog('myTimer')
+console.timeEnd('myTimer')
+```
+
+<br />
+
+### 콘솔 출력의 그룹핑 - group / groupCollapsed / groupEnd
+
+`console.group()` 은 console 의 method 들을 그룹화해주는 기능을 한다. 마찬가지로 라벨을 받아서 표시해줄 수 있다.
+`console.groupCollapsed()` 를 사용하면 처음부터 그룹이 닫혀진 상태로 보여져서 더 깔끔하게 볼 수 있다.
+
+```javascript
+console.group('myGroup')
+console.groupEnd('myGroup')
+
+console.groupCollapsed('myCollapsedGroup')
+console.groupEnd('myCollapsedGroup')
+```
+
+추가로 테스트를 해보면서 알게 되었는데 그룹 내에서 호출된 함수가 console 을 사용하는 경우 해당 내용도 그룹에 포함된다.
+
+```javascript
+function taskA() {
+    console.log('execute taskA')
+}
+
+function taskB() {
+    console.log('execute taskB')
+}
+
+console.group('myTask')
+taskA()
+taskB()
+console.groupEnd('myTask')
+```
+
+<br />
+
+### 데이터의 그리드화 - table
+
+정제된 형태로 데이터를 보고 싶을 때는 `console.table` 을 사용하면 깔끔하게 볼 수 있다.
+구조가 복잡하진 않지만 value 확인이 불편한 경우 사용하면 편한 것 같다.
+
+개인적으로는 1depth 형태의 Array 또는 Object 를 넣어서 볼 때가 있긴 하지만 단순하지 않은 구조를 표현할 땐 직관적이지 않은 느낌이다.
+
+```javascript
+console.table({
+    test: 'a',
+    test2: [1, 3, 5],
+    test3: { name: 'test3' },
+})
+
+console.table([1, 3, 5, 'a', { test: { test2: 'test' } }])
+```
+
+![console table 출력](/static/images/develop/js/console-table.png)
+
+<br />
+
+### 객체의 프로퍼티 확인 - dir
+
+javascript object 의 property 목록을 확인하고 싶을 때 `console.dir` 을 사용한다고 하는데,
+아직까지는 html element 외에 특별히 사용해본 기억은 없다.
+
+그래도 알아두면 좋을 것 같다고 생각한다.
+
+```javascript
+console.log(document.body)
+console.dir(document.body)
+```
+
+![console dir](/static/images/develop/js/console-dir.png)
+
+<br />
+
+### 호출 경로 추적하기 - trace
+
+`console.trace` 를 사용하면 **console.trace** method 가 호촐된 시점까지 어떻게 함수가 호출되었는지 역순으로 로그에 남는다.
+복잡한 프로젝트에서 공통으로 사용되는 함수들에서 사용하면 편리하다.[^2]
+
+[^2]: debugger 를 사용해서 callstack 을 확인해봐도 된다.
+
+```javascript
+function a() {
+    b()
+    c()
+}
+
+function b() {
+    c()
+}
+
+function c() {
+    console.trace('trace from c')
+}
+```
+
+<br />
+
+## 마무리
+
+console 의 여러가지 method 들을 알아보았는데, 기억해두면 사용하기 간단해서 편한 것 같다.
+하지만 몰라도 그만이다. 그리고 실제 운영되는 사이트에서는 보통의 경우 console 을 찍지 않는게 좋으니 정리하는 습관을 들이는게 좋다.

@@ -1,0 +1,211 @@
+---
+title: 'JS 에서 async 함수 다루기 #3 : async-waterfall 함수 만들어보기'
+date: '2022-07-31T21:03:05.000+09:00'
+tags: ['js', 'async', 'async-waterfall', 'callback hell', '개인 라이브러리']
+draft: false
+summary: javascript 에서 async 함수의 동기적 호출을 도와주는 async-waterfall 만들어보기
+images: ['/static/images/develop/js/chsp-waterfall.png']
+---
+
+이전 글 ▶ [JS 에서 async 함수 다루기 #1 : async-waterfall](https://cheesepaninim.vercel.app/blog/develop/js/async-waterfall-01)
+
+### 라이브러리 개발 배경
+
+이전 글에서 다루었듯이 [async-waterfall](https://www.npmjs.com/package/async-waterfall) 라이브러리를 사용하면서 개인적으로 느낀 불편함이 두 가지 있었다.
+
+1. task 함수마다 callback 을 받는 위치가 다름 - 이전 task 에서 전달한 args 에 따라 달라짐
+2. callback 호출 시 항상 첫 번째 인자로 err 값을 전달해야 함 - 없을 경우 null
+
+위 두 가지를 보완하고자 `async-waterfall` 라이브러리를 뜯어보기로 결심했다.
+
+<br />
+
+[async-waterfall GitHub](https://github.com/es128/async-waterfall/blob/master/index.js)으로 들어가서 소스 코드를 살펴보았다.
+기능 자체가 많지 않아서인지 코드는 굉장히 짧았다. 로직은 `index.js`에 있는 75줄의 소스 코드가 전부였다.
+
+다만 소스 코드를 이해하는데는 시간이 상당히 오래걸렸다.
+console 을 수도 없이 찍어보고 debugging을 하면서 겨우 흐름을 파악했지만 다시 보면 또 헷갈릴만큼 어려웠다.
+9년 전에 개발된 라이브러리임에도 매우 수준 높은 코드였다.[^1]
+그리고 여전히 많이 쓰일만큼 완성도와 인지도가 높은 것 같다.
+
+[^1]: 내 수준이 아직 한참 낮아서 그런것 같기도 하다.
+
+하지만 덕분에 아예 새로 개발을 하게 되었고 npm 에 배포도 진행했다.[^2]
+
+[^2]: https://www.npmjs.com/package/chsp
+
+<br />
+
+---
+
+### chsp.waterfall 소스 코드
+
+![chsp.waterfall source code](/static/images/develop/js/chsp-waterfall-source.png)
+
+**위에 이미지에서 노란색으로 하이라이트 처리한 부분이 chsp.waterfall 에서 필요한 로직이다.**
+
+그 외에 _defaultCallback_ 은 이후에 예외처리로 뺄 수도 있고 꼭 필요한 부분은 아니다.
+
+소스 최상단에 `require` 했던 _argsType_, *isFunction*은 개인용 라이브러리를 만들면서 추가한 모듈인데,
+이것들 역시 단순하고 크게 신경쓰지 않아도 될 것 같다.
+
+이제 TODO와 공백을 제외하면 19줄 밖에 되지 않는다. 물론, 예외처리 등을 추가하면 조금 늘어날 예정이긴 하다.
+
+<br />
+
+간단히 설명해보자면 흐름은 다음과 같다.
+
+1. [line19] : 입력받은 callback 이 함수이면 그대로 사용, 함수가 아니면 defaultCallback 을 마지막 callback 함수로 사용한다.<br/>
+
+2. [line21] : [line5-9]에서 만든 `interceptor`를 사용해서 입력받은 tasks의 각각의 task가 이전 task로부터 `arguments`를 받을 수 있는 형태로 바꿔준다.
+   _이 때, 이전 task에서 전달받은 arguments 중 Error 객체가 있다면 현재 task가 실행되지 않고 입력받은 callback(혹은 defaultCallback)이 실행되도록 한다._<br/>
+
+3. [line22] : [line21]에서 만든 `interceptedTasks`를 역순으로 정렬해서 Iterator 로 만들어준다.
+   _역순으로 정렬한 이유는 [line24-32]에서 callbackHell 구조로 만들 때 내가 생각하기에 좀더 편하게 하기 위함이다._<br/>
+
+4. [line24-32] : [line22]에서 만든 iterator를 이용해서 callbackHell 구조로 만들어준다.
+   _ex) `task1(task2(task3(callback())))`_<br/>
+
+5. [line34] : 위에서 만든 callbackHell 을 실행한다.
+
+<br />
+
+이렇게 적어보긴 했는데 복잡하긴 한 것 같다.😐
+
+<br />
+
+---
+
+### chsp.waterfall 사용해보기
+
+[이전 글](https://cheesepaninim.vercel.app/blog/develop/js/async-waterfall-01)에서 작성했던 코드를 chsp.waterfall 로 바꾸어보자.
+
+참고로 현재 라이브러리는 [npm](https://www.npmjs.com/package/chsp)에 배포되어 있어서 설치 후 따라할 수 있다.
+
+```bash
+$ npm i chsp
+```
+
+<br />
+
+#### chsp.waterfall
+
+[async-waterfall](https://www.npmjs.com/package/async-waterfall#tasks-as-array-of-functions) 의 샘플을 가져와서 비교하면 이렇게 바뀐다.
+
+```javascript
+const { waterfall } = require('chsp')
+
+waterfall(
+    [
+        function (callback) {
+            callback('one', 'two')
+        },
+        function (callback, arg1, arg2) {
+            callback('three')
+        },
+        function (callback, arg1) {
+            // arg1 now equals 'three'
+            callback('done')
+        },
+    ],
+    function (...result) {
+        // result[0] now equals 'done'
+    }
+)
+```
+
+에러는 callback 호출 시 위치에 상관없이 new Error() 로 에러 객체를 던지면 된다.
+
+<br />
+
+#### async-waterfall 라이브러리를 사용한 코드
+
+```javascript
+const getOrderTime = 100 * 1
+const makeFoodTime = 100 * 5
+const deliverFoodTime = 100 * 2
+
+const getOrder = (callback, food) => {
+    setTimeout(() => {
+        console.log(`${food} ordered!`)
+        callback(null, `deilicous ${food}`)
+    }, getOrderTime)
+}
+
+const makeFood = (food, callback) => {
+    setTimeout(() => {
+        console.log(`${food} cooked!`)
+        callback(null, `cooked ${food}`)
+    }, makeFoodTime)
+}
+
+const deliverFood = (food, callback) => {
+    setTimeout(() => {
+        console.log(`${food} delivered!`)
+        callback(null, 'Delivery The End')
+    }, deliverFoodTime)
+}
+
+const order = (food) => {
+    waterfall([(callback) => getOrder(callback, food), makeFood, deliverFood], (err, result) => {
+        err ? console.log(`err : ${err}`) : console.log(`result : ${result}`)
+    })
+}
+
+order('pizza')
+```
+
+#### chsp.waterfall 라이브러리를 사용한 코드
+
+```javascript
+const { waterfall } = require('chsp')
+
+const getOrderTime = 100 * 1
+const makeFoodTime = 100 * 5
+const deliverFoodTime = 100 * 2
+
+const getOrder = (callback, food) => {
+    setTimeout(() => {
+        console.log(`${food} ordered!`)
+        callback(`deilicous ${food}`)
+    }, getOrderTime)
+}
+
+const makeFood = (callback, food) => {
+    setTimeout(() => {
+        console.log(`${food} cooked!`)
+        callback(`cooked ${food}`, new Error('cook ran away'))
+    }, makeFoodTime)
+}
+
+const deliverFood = (callback, food) => {
+    setTimeout(() => {
+        console.log(`${food} delivered!`)
+        callback('Delivery The End')
+    }, deliverFoodTime)
+}
+
+const order = (food) => {
+    waterfall([(callback) => getOrder(callback, food), makeFood, deliverFood], (...result) => {
+        console.log(`result : ${result}`)
+    })
+}
+
+order('pizza')
+```
+
+두 코드를 비교해보면 사용법이 크게는 달라지지 않았다. 대신 처음에 의도했던 두 가지 부분에서 변화를 주었다.
+
+1. 각각의 task는 callback 함수를 항상 첫 번째 인자로 받는다.<br/>
+
+2. callback 에서 에러가 없는 경우 첫 번째 인자로 null 을 전달하지 않아도 된다.<br/>
+   => `new Error()` 로 에러 객체를 전달하면 tasks 실행 흐름이 중단되고 입력받은 callback 이 실행된다.
+   => 이 때, result 에서는 callback() 실행 시 전달한 arguments 를 전부 받아온다.
+
+---
+
+### 마무리
+
+처음부터 끝까지 혼자 고민하며 작업하다보니 크게 무언가 남진 않은것 같지만 보람있는 시간이었다.
+아직 혼자 사용하다보니 테스트케이스도 적었고 이슈가 발견되진 않았는데, 그렇다고 README.MD 를 작성하려니 귀찮은 마음이 있다.🤐
+라이브러리의 기능이 추가되고 업데이트되면 한 번 적어봐야겠다.

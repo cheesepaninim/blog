@@ -1,0 +1,223 @@
+---
+title: 'npm에 개인 라이브러리 만들어서 배포하기 - npm publish'
+date: '2022-07-29T10:12:49.000+09:00'
+tags: ['npm', 'publish', '개인 라이브러리']
+draft: false
+summary: npm(node package manager)에 개인 라이브러리 만들어서 배포하고 사용해보기.
+images: ['https://static.npmjs.com/338e4905a2684ca96e08c7780fc68412.png']
+---
+
+## npm
+
+### npm이란?
+
+[npm](https://www.npmjs.com)은 Node Package Manger 로 Node.js 에서 사용하는 모듈들을 배포하고 설치할 수 있게 해주는 도구이다.
+간단히 얘기하면 구글의 'Play Store' 혹은 아이폰의 'App Store'와 같이 봐도 무방할 것 같다.
+
+대표적으로 많이 쓰이고 유명한 것이 npm 과 yarn 인데, 나는 큰 문제를 경험해본적은 아직 없어서 처음 시작한 npm 을 주로 사용하고 있다.
+가끔 yarn 으로 먼저 시작한 프로젝트에서만 yarn 을 사용하고 있다.
+
+새로 프로젝트를 시작할 때, 시작하려는 프로젝트의 루트 경로에서 cmd(Command Prompt)를 열어서 아래 명령어를 입력하면 `package.json`이 자동 생성된다.
+
+```bash
+$ npm init -y
+```
+
+요즘에는 CRA(Create React App) 등 이미 준비된 라이브러리 등의 사용을 주로 하면서 위 명령어를 쓸 일이 거의 없긴 하지만,
+간단한 프로젝트를 만들거나 제로베이스로 시작해보거나 연습용으로 만들 때 가끔 사용한다.
+
+그리고 이미 준비된 프로젝트를 clone 해서 시작할 경우 package.json 이 준비되어있는데,
+`npm i` 명령어를 통해 package.json 에 명시된 의존 모듈을 설치할 수 있다.
+
+## <br/>
+
+### npm에 라이브러리 배포하기 - npm publish
+
+이번 포스팅에서는 npm에 배포하기 위한 과정을 최소화해서 진행해보려고 한다.
+그리고 내가 기존에 만들었던 [개인용 라이브러리](https://github.com/cheesepaninim/lib)를 배포해보려고 한다.
+
+<details expand={true}>
+    <summary>NPM 배포하기</summary>
+    <TOCInline toc={props.toc} exclude="Overview" fromHeading={4} />
+</details>
+
+#### npm 계정 만들기
+
+https://www.npmjs.com/signup 사이트로 접속해서 package 를 관리하고 배포할 계정을 생성해준다.
+사용하려는 ID 와 email, 비밀번호를 입력하고나면 입력한 email 로 인증문자가 보내진다.
+
+![](/static/images/develop/npm/npm-signup.png)
+
+인증 코드만 입력하면 가입이 끝난다.
+
+<br />
+
+#### package.json 작성하기
+
+npm에 모듈을 배포하기 위해서는 [package.json](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)에 해당 모듈에 대한 정보가 들어있어야 한다.
+프로젝트의 루트 경로에 package.json 이 있다면 사용하면 되고, 그렇지 않다면 `npm init -y` 명령어롤 통해 생성한다.
+
+```json
+{
+    "name": "chsp",
+    "version": "0.1.0",
+    "description": "cheesepaninim's personal library - support async functions waterfall execute, check arguments type, ...",
+    "main": "./index.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cheesepaninim/lib.git"
+    },
+    "keywords": [
+        "personal-library",
+        "async-waterfall",
+        "arguments-type",
+        "convention",
+        "path-and-values",
+        "type-check"
+    ],
+    "author": {
+        "name": "Cheesepaninim",
+        "url": "https://cheesepaninim.vercel.app"
+    },
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/cheesepaninim/lib/issues",
+        "email": "cheesepaninim@gmail.com"
+    },
+    "homepage": "https://github.com/cheesepaninim/lib",
+    "devDependencies": {
+        "jest": "^28.1.0"
+    }
+}
+```
+
+-   `name` : package 의 name 으로 npm 에 배포된 다른 package 와 중복되지 않아야 한다.
+-   `version` : package 버전 관리를 위해 사용하는데
+    [semantic versioning](https://docs.npmjs.com/about-semantic-versioning) 이라는 spec을 따르기를 추천한다고 한다.
+-   `description` : package 에 관한 설명을 적어준다.
+-   `main` : 배포하는 패키지의 entry(진입점) 역할을 하는 파일을 입력한다. (당연히 해당 파일이 경로 상에 있어야 한다.)
+-   `repository` : 레포지토리 타입과 URL 을 적어준다.
+-   `license` : 사실 라이센스에 대해서는 아는 바가 거의 없다. (※ 참고 https://opensource.org/licenses/alphabetical)
+-   `bugs` : 버그에 대해서 report 할 수 있는 url 과 email 을 적어준다.
+-   `homepage` : 홈페이지 사이트를 적어주면 되는데, 따로 없다면 그냥 git 저장소 url 을 적으면 된다.
+-   `keywords` : 키워드를 적는다.
+-   `author` : 패키지 저자 이름과 사이트를 적는다.
+
+<br />
+
+#### npm login 하기
+
+준비가 되었다면 cmd 에서 npm 로그인을 한다.
+
+```bash
+$ npm login
+```
+
+`npm login` 명령어를 입력하고 사용자 이름(Username)과 비밀번호(Password), 이메일(Email)을 입력하면 된다.[^1],[^2]
+
+[^1]: 비밀번호 입력 시에는 따로 CMD에서 반응이 없는 것처럼 보이지만 다 입력하고 엔터를 누르면 된다.
+[^2]: 최초 로그인 시에는 이메일 인증이 다시 필요한 것 같다.
+
+![CMD 에서 npm 로그인 하기](/static/images/develop/npm/npm-login.png)
+
+<br />
+
+#### package 배포하기
+
+배포 이전에 이미 동일한 이름의 package가 존재하지 않는지 확인해야 한다.
+
+![npm publish name error - E403](/static/images/develop/npm/npm-name-err.png)
+
+이미 존재하는 패키지를 배포하려고 할 경우 `npm code E403 Forbidden` 에러를 마주하게 된다.
+내용을 읽어보면 올바른 ID 로 로그인한 것이 맞는지 물어보고 있다.
+해당 패키지가 이미 배포가 되어있고 내가 로그인한 ID 가 패키지를 배포한 ID 와 다르기 떄문인 것 같다.
+
+배포하려는 이름의 패키지가 이미 존재하는지 확인하고 싶다면 https://www.npmjs.com/ 사이트에 접속해서 패키지 이름을 검색해보면 된다.
+이미 존재할 경우 `exact match` 라는 뱃지가 달린 패키지가 검색된다.
+
+아니면 cmd 창에서 `npm info ${package_name}` 으로 검색을 해서 E404가 나온다면 사용 가능하다.
+
+package name 을 확인한 뒤, 프로젝트의 루트 경로에서 publish 명령어로 배포를 하고나면 아래와 같은 화면을 볼 수 있다.
+
+```bash
+$ npm publish
+```
+
+![npm publish success](/static/images/develop/npm/npm-publish.png)
+
+README.md 파일이 따로 없어서 텅비어 보이지만 npm 사이트에서도 정상적으로 확인된다.
+
+![npm chsp](/static/images/develop/npm/npm-chsp.png)
+
+※ 추가적으로 npm publish 에 대해서 알아보고 싶다면 [npm-publish](https://docs.npmjs.com/cli/v8/commands/npm-publish)
+사이트에서 확인해보면 된다.
+
+#### 사용하기 + 버전 업데이트 하기
+
+test 하기 위해 test 프로젝트를 생성 후 내가 만든 패키지를 설치했다.
+
+```bash
+$ npm i chsp
+```
+
+설치 후 테스트를 해보았더니 에러가 발생했다. 해결을 하고 버전을 업데이트해서 다시 배포했다.
+
+버전 업데이트는 cli에서 할 수도 있는데, 개인적으로는 package.json 파일에서 수정하는 것이 편한 것 같다.
+
+버전을 `0.1.0` → `0.1.1`로 업데이트하고 다시 `npm publish` 명령어를 통해 배포했다.
+
+<br />
+
+`module.exports`를 해두어서 `require`를 통해 패키지를 불러와 사용할 수 있게 했다.
+
+```javascript
+const chsp = require('chsp')
+
+const f2_1 = (callback, ...args) => {
+    setTimeout(function () {
+        console.log('f2_1')
+        callback('b-1')
+    }, 100 * 7)
+}
+const f2_2 = (callback, ...args) => {
+    setTimeout(function () {
+        console.log('f2_2')
+        callback(args[0], 'b-2')
+    }, 100 * 10)
+}
+const f2_3 = (callback, ...args) => {
+    setTimeout(function () {
+        console.log('f2_3')
+        callback('b-3', ...args)
+    }, 100 * 4)
+}
+
+chsp.waterfall([f2_1, f2_2, f2_3], (...args) => {
+    console.log(args)
+})
+```
+
+이렇게 테스트 코드를 입력해보니 정상적으로 코드가 동작했다.[^3]
+
+[^3]: 위 샘플은 다음에 소개할 개인적으로 만들어본 async waterfall 함수이다.
+
+<br />
+
+---
+
+### 마무리
+
+세상에는 정말 좋은 라이브러리들이 많이 오픈소스로 공개되어 있다.
+적당한 기능이라 생각해서 로직을 구현하다보면 의외로 고려해야할 점들이 많고 예외처리도 필요한데,
+라이브러리를 사용하면 그런 부분들에 대한 고민을 줄이고 개발 시간을 단축하거나 실수를 줄일 수 있는 것 같다.
+
+사실 내가 위에서 배포한 라이브러리도 예외처리가 아직 부족하고 기능적으로도 이미 더 좋은 라이브러리들이 많이 있다.
+다만, 나의 전용 라이브러리로 조금씩 가꿔나가며 업그레이드 해볼 생각이다.
+
+---
